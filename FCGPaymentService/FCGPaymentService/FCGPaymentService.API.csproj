@@ -14,4 +14,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FCGPaymentService.Infra.Ioc\FCGPaymentService.Infra.Ioc.csproj" />
+  </ItemGroup>
+
 </Project>

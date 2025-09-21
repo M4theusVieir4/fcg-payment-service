@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FCGPaymentService.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f8aeda86e04f7cd3046284adc3de58d869c8b8f0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cf1ea7e64b816d6c8e9d629fb80ceddfd1c2495c")]
 [assembly: System.Reflection.AssemblyProductAttribute("FCGPaymentService.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FCGPaymentService.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

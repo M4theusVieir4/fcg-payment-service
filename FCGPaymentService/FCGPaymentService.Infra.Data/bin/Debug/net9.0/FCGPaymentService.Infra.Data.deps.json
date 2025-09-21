@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "FCGPaymentService.Infra.Data/1.0.0": {
+        "dependencies": {
+          "FCGPaymentService.Domain": "1.0.0"
+        },
+        "runtime": {
+          "FCGPaymentService.Infra.Data.dll": {}
+        }
+      },
+      "FCGPaymentService.Domain/1.0.0": {
+        "runtime": {
+          "FCGPaymentService.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "FCGPaymentService.Infra.Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FCGPaymentService.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

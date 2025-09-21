@@ -1,0 +1,12 @@
+C:\Users\vieira\source\repos\FCGPaymentService\FCGPaymentService\FCGPaymentService.Domain\bin\Debug\net9.0\FCGPaymentService.Domain.deps.json
+C:\Users\vieira\source\repos\FCGPaymentService\FCGPaymentService\FCGPaymentService.Domain\bin\Debug\net9.0\FCGPaymentService.Domain.dll
+C:\Users\vieira\source\repos\FCGPaymentService\FCGPaymentService\FCGPaymentService.Domain\bin\Debug\net9.0\FCGPaymentService.Domain.pdb
+C:\Users\vieira\source\repos\FCGPaymentService\FCGPaymentService\FCGPaymentService.Domain\obj\Debug\net9.0\FCGPaymentService.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\vieira\source\repos\FCGPaymentService\FCGPaymentService\FCGPaymentService.Domain\obj\Debug\net9.0\FCGPaymentService.Domain.AssemblyInfoInputs.cache
+C:\Users\vieira\source\repos\FCGPaymentService\FCGPaymentService\FCGPaymentService.Domain\obj\Debug\net9.0\FCGPaymentService.Domain.AssemblyInfo.cs
+C:\Users\vieira\source\repos\FCGPaymentService\FCGPaymentService\FCGPaymentService.Domain\obj\Debug\net9.0\FCGPaymentService.Domain.csproj.CoreCompileInputs.cache
+C:\Users\vieira\source\repos\FCGPaymentService\FCGPaymentService\FCGPaymentService.Domain\obj\Debug\net9.0\FCGPaymentService.Domain.sourcelink.json
+C:\Users\vieira\source\repos\FCGPaymentService\FCGPaymentService\FCGPaymentService.Domain\obj\Debug\net9.0\FCGPaymentService.Domain.dll
+C:\Users\vieira\source\repos\FCGPaymentService\FCGPaymentService\FCGPaymentService.Domain\obj\Debug\net9.0\refint\FCGPaymentService.Domain.dll
+C:\Users\vieira\source\repos\FCGPaymentService\FCGPaymentService\FCGPaymentService.Domain\obj\Debug\net9.0\FCGPaymentService.Domain.pdb
+C:\Users\vieira\source\repos\FCGPaymentService\FCGPaymentService\FCGPaymentService.Domain\obj\Debug\net9.0\ref\FCGPaymentService.Domain.dll

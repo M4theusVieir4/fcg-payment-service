@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FCGPaymentService.Domain\FCGPaymentService.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net9.0": {}
+    "net9.0": {
+      "FCGPaymentService.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/FCGPaymentService.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/FCGPaymentService.Domain.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "FCGPaymentService.Domain/1.0.0": {
+      "type": "project",
+      "path": "../FCGPaymentService.Domain/FCGPaymentService.Domain.csproj",
+      "msbuildProject": "../FCGPaymentService.Domain/FCGPaymentService.Domain.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net9.0": []
+    "net9.0": [
+      "FCGPaymentService.Domain >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\vieira\\.nuget\\packages\\": {},
@@ -39,7 +58,11 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\vieira\\source\\repos\\FCGPaymentService\\FCGPaymentService\\FCGPaymentService.Domain\\FCGPaymentService.Domain.csproj": {
+              "projectPath": "C:\\Users\\vieira\\source\\repos\\FCGPaymentService\\FCGPaymentService\\FCGPaymentService.Domain\\FCGPaymentService.Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

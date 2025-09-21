@@ -1,0 +1,16 @@
+C:\Users\vieira\source\repos\FCGPaymentService\FCGPaymentService\FCGPaymentService.Infra.Data\bin\Debug\net9.0\FCGPaymentService.Infra.Data.deps.json
+C:\Users\vieira\source\repos\FCGPaymentService\FCGPaymentService\FCGPaymentService.Infra.Data\bin\Debug\net9.0\FCGPaymentService.Infra.Data.dll
+C:\Users\vieira\source\repos\FCGPaymentService\FCGPaymentService\FCGPaymentService.Infra.Data\bin\Debug\net9.0\FCGPaymentService.Infra.Data.pdb
+C:\Users\vieira\source\repos\FCGPaymentService\FCGPaymentService\FCGPaymentService.Infra.Data\bin\Debug\net9.0\FCGPaymentService.Domain.dll
+C:\Users\vieira\source\repos\FCGPaymentService\FCGPaymentService\FCGPaymentService.Infra.Data\bin\Debug\net9.0\FCGPaymentService.Domain.pdb
+C:\Users\vieira\source\repos\FCGPaymentService\FCGPaymentService\FCGPaymentService.Infra.Data\obj\Debug\net9.0\FCGPaymentService.Infra.Data.csproj.AssemblyReference.cache
+C:\Users\vieira\source\repos\FCGPaymentService\FCGPaymentService\FCGPaymentService.Infra.Data\obj\Debug\net9.0\FCGPaymentService.Infra.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\vieira\source\repos\FCGPaymentService\FCGPaymentService\FCGPaymentService.Infra.Data\obj\Debug\net9.0\FCGPaymentService.Infra.Data.AssemblyInfoInputs.cache
+C:\Users\vieira\source\repos\FCGPaymentService\FCGPaymentService\FCGPaymentService.Infra.Data\obj\Debug\net9.0\FCGPaymentService.Infra.Data.AssemblyInfo.cs
+C:\Users\vieira\source\repos\FCGPaymentService\FCGPaymentService\FCGPaymentService.Infra.Data\obj\Debug\net9.0\FCGPaymentService.Infra.Data.csproj.CoreCompileInputs.cache
+C:\Users\vieira\source\repos\FCGPaymentService\FCGPaymentService\FCGPaymentService.Infra.Data\obj\Debug\net9.0\FCGPaymentService.Infra.Data.sourcelink.json
+C:\Users\vieira\source\repos\FCGPaymentService\FCGPaymentService\FCGPaymentService.Infra.Data\obj\Debug\net9.0\FCGPayme.153DCC3B.Up2Date
+C:\Users\vieira\source\repos\FCGPaymentService\FCGPaymentService\FCGPaymentService.Infra.Data\obj\Debug\net9.0\FCGPaymentService.Infra.Data.dll
+C:\Users\vieira\source\repos\FCGPaymentService\FCGPaymentService\FCGPaymentService.Infra.Data\obj\Debug\net9.0\refint\FCGPaymentService.Infra.Data.dll
+C:\Users\vieira\source\repos\FCGPaymentService\FCGPaymentService\FCGPaymentService.Infra.Data\obj\Debug\net9.0\FCGPaymentService.Infra.Data.pdb
+C:\Users\vieira\source\repos\FCGPaymentService\FCGPaymentService\FCGPaymentService.Infra.Data\obj\Debug\net9.0\ref\FCGPaymentService.Infra.Data.dll
