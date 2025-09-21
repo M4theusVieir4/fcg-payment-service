@@ -1,0 +1,6 @@
+@FCGPaymentService_HostAddress = http://localhost:5038
+
+GET {{FCGPaymentService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
