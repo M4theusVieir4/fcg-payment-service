@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36109.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FCG.PaymentService.Api", "FCG.PaymentService\FCG.PaymentService.Api.csproj", "{13841D91-F2CC-4BED-946C-5730556C45C5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FCG.PaymentService.Api", "FCG.PaymentService.Api\FCG.PaymentService.Api.csproj", "{13841D91-F2CC-4BED-946C-5730556C45C5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FCG.PaymentService.Domain", "FCG.PaymentService.Domain\FCG.PaymentService.Domain.csproj", "{78301CF0-F55C-4A57-B251-871EDA95BF9E}"
 EndProject
