@@ -1,4 +1,4 @@
-﻿using FCG.Payment.UnitTests._Common;
+﻿using FCG.Payments.UnitTests._Common;
 using FCG.PaymentService.Application.UseCases;
 using FCG.PaymentService.Domain;
 using FCG.PaymentService.Domain._Common.Exceptions;
@@ -37,7 +37,7 @@ public class CreatePaymentUseCaseTests : UseCaseTestBase<CreatePaymentUseCase>
         await _paymentRepository
             .Received(1)
             .IndexAsync(
-                Arg.Any<FCG.PaymentService.Domain.Payment>(),
+                Arg.Any<Payment>(),
                 CancellationToken
             );
     }
@@ -59,7 +59,7 @@ public class CreatePaymentUseCaseTests : UseCaseTestBase<CreatePaymentUseCase>
         await _paymentRepository
             .DidNotReceive()
             .IndexAsync(
-                Arg.Any<FCG.PaymentService.Domain.Payment>(),
+                Arg.Any<Payment>(),
                 CancellationToken
             );
     }

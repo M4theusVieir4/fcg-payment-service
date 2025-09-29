@@ -2083,9 +2083,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\vieira\\source\\repos\\FCGPaymentService\\tests\\FCG.Payment.UnitTests\\FCG.Payment.UnitTests.csproj",
-      "projectName": "FCG.Payment.UnitTests",
-      "projectPath": "C:\\Users\\vieira\\source\\repos\\FCGPaymentService\\tests\\FCG.Payment.UnitTests\\FCG.Payment.UnitTests.csproj",
+      "projectUniqueName": "C:\\Users\\vieira\\source\\repos\\FCGPaymentService\\tests\\FCG.Payment.UnitTests\\FCG.Payments.UnitTests.csproj",
+      "projectName": "FCG.Payments.UnitTests",
+      "projectPath": "C:\\Users\\vieira\\source\\repos\\FCGPaymentService\\tests\\FCG.Payment.UnitTests\\FCG.Payments.UnitTests.csproj",
       "packagesPath": "C:\\Users\\vieira\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\vieira\\source\\repos\\FCGPaymentService\\tests\\FCG.Payment.UnitTests\\obj\\",
       "projectStyle": "PackageReference",

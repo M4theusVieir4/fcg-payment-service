@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.Core" Version="4.0.0.28" />
+    <PackageReference Include="MediatR.Extensions.FluentValidation.AspNetCore" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.9" />
+    <PackageReference Include="OpenSearch.Client" Version="1.8.0" />
+    <PackageReference Include="OpenSearch.Client.JsonNetSerializer" Version="1.8.0" />
+    <PackageReference Include="OpenSearch.Net.Auth.AwsSigV4" Version="1.8.0" />
+    <PackageReference Include="OpenTelemetry" Version="1.12.0" />
+    <PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.12.0" />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.12.0" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.12.0" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.12.0" />
+    <PackageReference Include="OpenTelemetry.Resources.AWS" Version="1.11.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FCG.Payments.Domain\FCG.Payments.Domain.csproj" />
+    <ProjectReference Include="..\FCG.Payments.Infra.Data\FCG.Payments.Infra.Data.csproj" />
+    <ProjectReference Include="..\FCG.Payments.Application\FCG.Payments.Application.csproj" />
+  </ItemGroup>
+
+</Project>
