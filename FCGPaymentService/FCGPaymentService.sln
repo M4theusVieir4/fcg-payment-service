@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FCG.Payment.UnitTests", "..\tests\FCG.Payment.UnitTests\FCG.Payment.UnitTests.csproj", "{4924122F-2A37-4191-BDA8-5B2FBF64B395}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{D011BB8C-E569-419E-A276-00CFB8B42A2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D011BB8C-E569-419E-A276-00CFB8B42A2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D011BB8C-E569-419E-A276-00CFB8B42A2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4924122F-2A37-4191-BDA8-5B2FBF64B395}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4924122F-2A37-4191-BDA8-5B2FBF64B395}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4924122F-2A37-4191-BDA8-5B2FBF64B395}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4924122F-2A37-4191-BDA8-5B2FBF64B395}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

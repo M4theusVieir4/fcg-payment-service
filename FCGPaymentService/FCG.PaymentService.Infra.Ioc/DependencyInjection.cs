@@ -1,6 +1,8 @@
 ﻿using FCG.PaymentService.Application.UseCases;
+using FCG.PaymentService.Application.Validators;
 using FCG.PaymentService.Infra.Ioc.ElasticSearchConfig;
 using FCG.PaymentService.Infra.Ioc.Pipelines;
+using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,6 +27,7 @@ public static class DependencyInjection
 
         services
             .AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<GetPaymentUseCase>())
+            .AddValidatorsFromAssemblyContaining<CreatePaymentInputValidator>()
             .AddTransient(typeof(IPipelineBehavior<,>), typeof(FluentValidatorPipeline<,>))
             .AddElasticSearchModule(elasticSearchSettings);
         //services.AddScoped<IPaymentRepository, ElasticsearchPaymentRepository>();

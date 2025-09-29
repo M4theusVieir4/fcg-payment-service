@@ -15,7 +15,7 @@ public class Payment(
 ) : EntityBase(Id)
 {    
     public Guid OrderId { get; private set; } = orderId;
-    public Guid UserId { get; private set; } = orderId;
+    public Guid UserId { get; private set; } = userId;
     public decimal Amount { get; private set; } = amount;
     public string Currency { get; private set; } = currency;
     public string Status { get; private set; } = status;
