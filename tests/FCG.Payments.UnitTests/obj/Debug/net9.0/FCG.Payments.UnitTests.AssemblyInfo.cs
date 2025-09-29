@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FCG.Payments.UnitTests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e501419e46d2f24769af2a136a4134c142873c2a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0cffd8ce633d546758ebbff6653f6b09de134f6f")]
 [assembly: System.Reflection.AssemblyProductAttribute("FCG.Payments.UnitTests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FCG.Payments.UnitTests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
