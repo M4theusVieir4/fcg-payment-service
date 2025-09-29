@@ -3,7 +3,7 @@
 namespace FCG.PaymentService.Application.Contracts;
 public record GetPaymentOutput
 (    
-   Guid PaymentId,     
+   Guid Id,     
    Guid OrderId,
    Guid UserId,
    decimal Amount,
@@ -17,7 +17,7 @@ public record GetPaymentOutput
 {
     public GetPaymentOutput(Payment payment)
         : this(
-              payment.PaymentId,
+              payment.Id,
               payment.OrderId,
               payment.UserId,
               payment.Amount,

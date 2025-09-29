@@ -2,7 +2,7 @@
 
 namespace FCG.PaymentService.Domain;
 public class Payment(
-        Guid paymentId,
+        Guid? Id,
         Guid orderId,
         Guid userId,
         decimal amount,
@@ -12,9 +12,8 @@ public class Payment(
         string provider,    
         DateTime createdAt,
         DateTime updatedAt
-) : EntityBase(paymentId)
-{
-    public Guid PaymentId { get; private set; } = paymentId;
+) : EntityBase(Id)
+{    
     public Guid OrderId { get; private set; } = orderId;
     public Guid UserId { get; private set; } = orderId;
     public decimal Amount { get; private set; } = amount;

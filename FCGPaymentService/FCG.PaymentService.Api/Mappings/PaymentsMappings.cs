@@ -7,4 +7,5 @@ namespace FCG.PaymentService.Api.Mappings;
 public static partial class PaymentsMappings
 {
     public static partial GetPaymentResponse ToResponse(this GetPaymentOutput output);
+    public static partial CreatePaymentResponse ToResponse(this CreatePaymentOutput output);
 }

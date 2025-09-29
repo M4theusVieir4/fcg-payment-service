@@ -1,5 +1,5 @@
 ﻿namespace FCG.PaymentService.Api.Contracts;
-public record GetPaymentResponse(
+public record CreatePaymentResponse(
    Guid Id,
    Guid OrderId,
    Guid UserId,

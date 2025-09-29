@@ -33,7 +33,7 @@ public static class ElasticSearchModule
         var pool = new SingleNodeConnectionPool(new Uri(settings.Endpoint));
         var connectionSetting = new ConnectionSettings(pool, awsConnection, sourceSerializer: JsonNetSerializer.Default)
             .DefaultMappingFor<Payment>(g => g
-                .IdProperty(p => p.Key)
+                .IdProperty(p => p.Id)
                 .IndexName(settings.IndexName)
             );
 
