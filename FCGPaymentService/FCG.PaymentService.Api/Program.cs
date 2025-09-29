@@ -2,6 +2,7 @@ using FCG.PaymentService.Infra.Ioc;
 using FCG.PaymentService.Infra.Ioc.Observability;
 
 var builder = WebApplication.CreateBuilder(args);
+var appSettings = builder.Services;
 
 
 builder.Services.AddOpenTelemetryInfra(

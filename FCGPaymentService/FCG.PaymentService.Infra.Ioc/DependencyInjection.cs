@@ -1,37 +1,32 @@
-﻿using Amazon;
-using Amazon.Runtime;
-using Elasticsearch.Net;
-using Elasticsearch.Net.Aws;
+﻿using FCG.PaymentService.Application.UseCases;
+using FCG.PaymentService.Infra.Ioc.ElasticSearchConfig;
+using FCG.PaymentService.Infra.Ioc.Pipelines;
+using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Nest;
 
 namespace FCG.PaymentService.Infra.Ioc;
 public static class DependencyInjection
 {
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        var uri = new Uri(configuration["Elasticsearch:Uri"]);
-        var accessKey = Environment.GetEnvironmentVariable("AWS_ACCESS_KEY_ID")
-                        ?? configuration["Elasticsearch:AccessKey"];
-        var secretKey = Environment.GetEnvironmentVariable("AWS_SECRET_ACCESS_KEY")
-                        ?? configuration["Elasticsearch:SecretKey"];
-        var region = configuration["Elasticsearch:Region"];
-        var defaultIndex = configuration["Elasticsearch:DefaultIndex"];
+        var elasticSearchSettings = new ElasticSearchSettings
+        {
+            Endpoint = configuration["Elasticsearch:Uri"] ?? throw new ArgumentNullException("Elasticsearch:Uri"),
+            AccessKey = Environment.GetEnvironmentVariable("AWS_ACCESS_KEY_ID")
+                        ?? configuration["Elasticsearch:AccessKey"]
+                        ?? throw new ArgumentNullException("Elasticsearch:AccessKey"),
+            Secret = Environment.GetEnvironmentVariable("AWS_SECRET_ACCESS_KEY")
+                        ?? configuration["Elasticsearch:SecretKey"]
+                        ?? throw new ArgumentNullException("Elasticsearch:SecretKey"),
+            Region = configuration["Elasticsearch:Region"] ?? throw new ArgumentNullException("Elasticsearch:Region"),
+            IndexName = configuration["Elasticsearch:DefaultIndex"] ?? throw new ArgumentNullException("Elasticsearch:DefaultIndex")
+        };
 
-        var awsCredentials = new BasicAWSCredentials(accessKey, secretKey);
-        var regionEndpoint = RegionEndpoint.GetBySystemName(region);
-        var pool = new SingleNodeConnectionPool(uri);
-        
-        var httpConnection = new AwsHttpConnection(awsCredentials, regionEndpoint);
-        var settings = new ConnectionSettings(pool, httpConnection)
-                            .DefaultIndex(defaultIndex)
-                            .EnableApiVersioningHeader(false)
-                            .RequestTimeout(TimeSpan.FromMinutes(2));
-
-        var client = new ElasticClient(settings);
-
-        services.AddSingleton<IElasticClient>(client);        
+        services
+            .AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<GetPaymentUseCase>())
+            .AddTransient(typeof(IPipelineBehavior<,>), typeof(FluentValidatorPipeline<,>))
+            .AddElasticSearchModule(elasticSearchSettings);
         //services.AddScoped<IPaymentRepository, ElasticsearchPaymentRepository>();
         //services.AddScoped<IRefundRepository, ElasticsearchRefundRepository>();
         //services.AddScoped<IWalletRepository, ElasticsearchWalletRepository>();

@@ -1,0 +1,32 @@
+﻿using FCG.PaymentService.Domain;
+
+namespace FCG.PaymentService.Application.Contracts;
+public record GetPaymentOutput
+(    
+   Guid PaymentId,     
+   Guid OrderId,
+   Guid UserId,
+   decimal Amount,
+   string Currency,
+   string Status,
+   string PaymentMethod,
+   string Provider,    
+   DateTime CreatedAt,        
+   DateTime UpdatedAt
+)
+{
+    public GetPaymentOutput(Payment payment)
+        : this(
+              payment.PaymentId,
+              payment.OrderId,
+              payment.UserId,
+              payment.Amount,
+              payment.Currency,
+              payment.Status,
+              payment.PaymentMethod,
+              payment.Provider,
+              payment.CreatedAt,
+              payment.UpdatedAt
+        )
+    {}
+};

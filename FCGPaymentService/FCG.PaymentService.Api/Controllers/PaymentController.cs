@@ -1,40 +1,38 @@
-﻿using FCGPaymentService.API.DTOs.Payment;
-using Microsoft.AspNetCore.Http;
+﻿using FCG.PaymentService.Api.Mappings;
+using FCG.PaymentService.Application.Contracts;
+using FCGPaymentService.API.DTOs.Payment;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FCGPaymentService.API.Controllers;
 [Route("api/[controller]")]
 [ApiController]
-public class PaymentController : ControllerBase
+public class PaymentController(IMediator mediator) : ControllerBase
 {
-    [HttpGet("{key:guid}")]
+    [HttpGet("{id:guid}")]
     [ActionName(nameof(GetPaymentByIdAsync))]
-    public IActionResult GetPaymentByIdAsync([FromRoute] Guid key, CancellationToken ct)
+    public async Task<IActionResult> GetPaymentByIdAsync([FromRoute] Guid id, CancellationToken ct)
     {
-        var payment = new PaymentResponseDTO
-        {
-            Id = key,
-            UserId = Guid.NewGuid(),
-            Amount = 100,
-            Status = "Pending"
-        };
+        var input = new GetPaymentInput(id);
+        var output = await mediator.Send(input, ct);
+        var response = output.ToResponse();        
 
-        return Ok(payment);
+        return Ok(response);
     }
 
-    [HttpPost]
-    public IActionResult CreatePayment([FromBody] CreatePaymentRequestDTO request)
-    {
-        var payment = new PaymentResponseDTO
-        {
-            Id = Guid.NewGuid(),
-            UserId = request.UserId,
-            Amount = request.Amount,
-            Status = "Pending"
-        };
+    //[HttpPost]
+    //public IActionResult CreatePayment([FromBody] CreatePaymentRequestDTO request)
+    //{
+    //    var payment = new PaymentResponseDTO
+    //    {
+    //        Id = Guid.NewGuid(),
+    //        UserId = request.UserId,
+    //        Amount = request.Amount,
+    //        Status = "Pending"
+    //    };
 
-        return CreatedAtAction(nameof(GetPaymentById), new { id = payment.Id }, payment);
-    }
+    //    return CreatedAtAction(nameof(GetPaymentById), new { id = payment.Id }, payment);
+    //}
 
 
     [HttpPost("{id}/confirm")]
