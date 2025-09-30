@@ -1,14 +1,27 @@
 {
   "version": 2,
-  "dgSpecHash": "kPB8s7SSz6w=",
-  "success": false,
+  "dgSpecHash": "2oNBT50jZf0=",
+  "success": true,
   "projectFilePath": "C:\\Users\\vieira\\source\\repos\\FCGPaymentService\\tests\\FCG.Payments.UnitTests\\FCG.Payments.UnitTests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\vieira\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\vieira\\.nuget\\packages\\coverlet.collector\\6.0.4\\coverlet.collector.6.0.4.nupkg.sha512",
     "C:\\Users\\vieira\\.nuget\\packages\\diffengine\\11.3.0\\diffengine.11.3.0.nupkg.sha512",
     "C:\\Users\\vieira\\.nuget\\packages\\emptyfiles\\4.4.0\\emptyfiles.4.4.0.nupkg.sha512",
+    "C:\\Users\\vieira\\.nuget\\packages\\fluentvalidation\\12.0.0\\fluentvalidation.12.0.0.nupkg.sha512",
+    "C:\\Users\\vieira\\.nuget\\packages\\mediatr\\13.0.0\\mediatr.13.0.0.nupkg.sha512",
+    "C:\\Users\\vieira\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
     "C:\\Users\\vieira\\.nuget\\packages\\microsoft.codecoverage\\17.14.1\\microsoft.codecoverage.17.14.1.nupkg.sha512",
+    "C:\\Users\\vieira\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\8.0.0\\microsoft.extensions.dependencyinjection.8.0.0.nupkg.sha512",
+    "C:\\Users\\vieira\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\vieira\\.nuget\\packages\\microsoft.extensions.logging\\8.0.0\\microsoft.extensions.logging.8.0.0.nupkg.sha512",
+    "C:\\Users\\vieira\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\8.0.0\\microsoft.extensions.logging.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\vieira\\.nuget\\packages\\microsoft.extensions.options\\8.0.0\\microsoft.extensions.options.8.0.0.nupkg.sha512",
+    "C:\\Users\\vieira\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512",
+    "C:\\Users\\vieira\\.nuget\\packages\\microsoft.identitymodel.abstractions\\8.0.1\\microsoft.identitymodel.abstractions.8.0.1.nupkg.sha512",
+    "C:\\Users\\vieira\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\8.0.1\\microsoft.identitymodel.jsonwebtokens.8.0.1.nupkg.sha512",
+    "C:\\Users\\vieira\\.nuget\\packages\\microsoft.identitymodel.logging\\8.0.1\\microsoft.identitymodel.logging.8.0.1.nupkg.sha512",
+    "C:\\Users\\vieira\\.nuget\\packages\\microsoft.identitymodel.tokens\\8.0.1\\microsoft.identitymodel.tokens.8.0.1.nupkg.sha512",
     "C:\\Users\\vieira\\.nuget\\packages\\microsoft.net.test.sdk\\17.14.1\\microsoft.net.test.sdk.17.14.1.nupkg.sha512",
     "C:\\Users\\vieira\\.nuget\\packages\\microsoft.testplatform.objectmodel\\17.14.1\\microsoft.testplatform.objectmodel.17.14.1.nupkg.sha512",
     "C:\\Users\\vieira\\.nuget\\packages\\microsoft.testplatform.testhost\\17.14.1\\microsoft.testplatform.testhost.17.14.1.nupkg.sha512",
@@ -31,28 +44,6 @@
     "C:\\Users\\vieira\\.nuget\\packages\\xunit.runner.visualstudio\\3.1.4\\xunit.runner.visualstudio.3.1.4.nupkg.sha512"
   ],
   "logs": [
-    {
-      "code": "NU1104",
-      "level": "Error",
-      "message": "Não é possível encontrar o projeto 'C:\\Users\\vieira\\source\\repos\\FCGPaymentService\\FCG.Payments\\FCG.Payments.Application\\FCG.Payments.Application.csproj'. Verifique se a referência do projeto é válida e se o arquivo de projeto existe.",
-      "projectPath": "C:\\Users\\vieira\\source\\repos\\FCGPaymentService\\tests\\FCG.Payments.UnitTests\\FCG.Payments.UnitTests.csproj",
-      "filePath": "C:\\Users\\vieira\\source\\repos\\FCGPaymentService\\tests\\FCG.Payments.UnitTests\\FCG.Payments.UnitTests.csproj",
-      "libraryId": "C:\\Users\\vieira\\source\\repos\\FCGPaymentService\\FCG.Payments\\FCG.Payments.Application\\FCG.Payments.Application.csproj",
-      "targetGraphs": [
-        "net9.0"
-      ]
-    },
-    {
-      "code": "NU1104",
-      "level": "Error",
-      "message": "Não é possível encontrar o projeto 'C:\\Users\\vieira\\source\\repos\\FCGPaymentService\\FCG.Payments\\FCG.Payments.Domain\\FCG.Payments.Domain.csproj'. Verifique se a referência do projeto é válida e se o arquivo de projeto existe.",
-      "projectPath": "C:\\Users\\vieira\\source\\repos\\FCGPaymentService\\tests\\FCG.Payments.UnitTests\\FCG.Payments.UnitTests.csproj",
-      "filePath": "C:\\Users\\vieira\\source\\repos\\FCGPaymentService\\tests\\FCG.Payments.UnitTests\\FCG.Payments.UnitTests.csproj",
-      "libraryId": "C:\\Users\\vieira\\source\\repos\\FCGPaymentService\\FCG.Payments\\FCG.Payments.Domain\\FCG.Payments.Domain.csproj",
-      "targetGraphs": [
-        "net9.0"
-      ]
-    },
     {
       "code": "NU1701",
       "level": "Warning",

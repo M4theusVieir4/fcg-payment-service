@@ -1,9 +1,9 @@
-﻿using FCG.PaymentService.Application._Common;
-using FCG.PaymentService.Application.Contracts;
-using FCG.PaymentService.Domain;
-using FCG.PaymentService.Domain._Common.Exceptions;
+﻿using FCG.Payments.Application._Common;
+using FCG.Payments.Application.Contracts;
+using FCG.Payments.Domain;
+using FCG.Payments.Domain._Common.Exceptions;
 
-namespace FCG.PaymentService.Application.UseCases;
+namespace FCG.Payments.Application.UseCases;
 public class CreatePaymentUseCase(IPaymentRepository paymentRepository) : IUseCase<CreatePaymentInput, CreatePaymentOutput>
 {
     public async Task<CreatePaymentOutput> Handle(CreatePaymentInput input, CancellationToken ct)

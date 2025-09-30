@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace FCG.PaymentService.Domain._Common.Exceptions;
+namespace FCG.Payments.Domain._Common.Exceptions;
 public class FcgExceptionCollection : FcgException, IEnumerable<FcgException>
 {
     public IReadOnlyCollection<FcgException> Exceptions { get; }

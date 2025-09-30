@@ -1,14 +1,14 @@
 ﻿using Amazon;
 using Amazon.Runtime;
-using FCG.PaymentService.Domain;
-using FCG.PaymentService.Infra.Data;
+using FCG.Payments.Domain;
+using FCG.Payments.Infra.Data;
 using Microsoft.Extensions.DependencyInjection;
 using OpenSearch.Client;
 using OpenSearch.Client.JsonNetSerializer;
 using OpenSearch.Net;
 using OpenSearch.Net.Auth.AwsSigV4;
 
-namespace FCG.PaymentService.Infra.Ioc.ElasticSearchConfig;
+namespace FCG.Payments.Infra.Ioc.ElasticSearchConfig;
 public static class ElasticSearchModule
 {
     public static IServiceCollection AddElasticSearchModule(

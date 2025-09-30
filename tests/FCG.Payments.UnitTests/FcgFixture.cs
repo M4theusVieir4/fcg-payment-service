@@ -1,4 +1,4 @@
-﻿namespace FCG.Payment.UnitTests;
+﻿namespace FCG.Payments.UnitTests;
 public class FcgFixture : IDisposable
 {
     private readonly CancellationTokenSource _cancellationTokenSource = new();

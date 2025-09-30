@@ -1,4 +1,4 @@
-﻿namespace FCG.PaymentService.Domain._Common.Exceptions;
+﻿namespace FCG.Payments.Domain._Common.Exceptions;
 public class FcgNotFoundException(
     Guid id,
     string entity,

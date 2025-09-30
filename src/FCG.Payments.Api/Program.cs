@@ -1,5 +1,8 @@
-using FCG.PaymentService.Infra.Ioc;
-using FCG.PaymentService.Infra.Ioc.Observability;
+using FCG.Payments.Api.Middlewares;
+using FCG.Payments.Infra.Ioc;
+using FCG.Payments.Infra.Ioc.Observability;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 var appSettings = builder.Services;
@@ -26,6 +29,19 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseAuthorization();
+
+app.MapHealthChecks(
+    "/health",
+    new HealthCheckOptions
+    {
+        ResponseWriter = UIResponseWriter
+            .WriteHealthCheckUIResponse
+    }
+);
+
 app.MapControllers();
 app.Run();
+
+public partial class Program { }

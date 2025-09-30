@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using NSubstituteAutoMocker;
 
-namespace FCG.Payment.UnitTests._Common;
+namespace FCG.Payments.UnitTests._Common;
 public abstract class ValidatorTestBase<TValidator>(FcgFixture fixture) : TestBase(fixture)
     where TValidator : class, IValidator
 {

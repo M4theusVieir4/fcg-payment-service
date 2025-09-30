@@ -1,11 +1,11 @@
 ﻿using FCG.Payments.UnitTests._Common;
-using FCG.PaymentService.Application.UseCases;
-using FCG.PaymentService.Domain;
-using FCG.PaymentService.Domain._Common.Exceptions;
+using FCG.Payments.Application.UseCases;
+using FCG.Payments.Domain;
+using FCG.Payments.Domain._Common.Exceptions;
 using NSubstitute;
 using Shouldly;
 
-namespace FCG.Payment.UnitTests.UseCases;
+namespace FCG.Payments.UnitTests.UseCases;
 public class CreatePaymentUseCaseTests : UseCaseTestBase<CreatePaymentUseCase>
 {
     private IPaymentRepository _paymentRepository;

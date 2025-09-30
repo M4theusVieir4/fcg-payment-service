@@ -1,9 +1,9 @@
-﻿using FCG.Payment.UnitTests._Common;
-using FCG.PaymentService.Application.Contracts;
-using FCG.PaymentService.Application.Validators;
+﻿using FCG.Payments.UnitTests._Common;
+using FCG.Payments.Application.Contracts;
+using FCG.Payments.Application.Validators;
 using Shouldly;
 
-namespace FCG.Payment.UnitTests.Validators;
+namespace FCG.Payments.UnitTests.Validators;
 public class CreatePaymentInputValidatorTests(FcgFixture fixture)
     : ValidatorTestBase<CreatePaymentInputValidator>(fixture)
 {

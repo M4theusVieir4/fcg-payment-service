@@ -1,7 +1,7 @@
-﻿using FCG.PaymentService.Domain;
+﻿using FCG.Payments.Domain;
 using OpenSearch.Client;
 
-namespace FCG.PaymentService.Infra.Data;
+namespace FCG.Payments.Infra.Data;
 public class PaymentRepository(IOpenSearchClient elasticClient) : IPaymentRepository
 {
     public async Task<bool> ExistByOrderIdAsync(Guid orderId, Guid? ignoreId = null, CancellationToken ct = default)

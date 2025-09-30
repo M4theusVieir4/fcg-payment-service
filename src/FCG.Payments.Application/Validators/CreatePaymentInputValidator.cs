@@ -1,7 +1,7 @@
-﻿using FCG.PaymentService.Application.Contracts;
+﻿using FCG.Payments.Application.Contracts;
 using FluentValidation;
 
-namespace FCG.PaymentService.Application.Validators;
+namespace FCG.Payments.Application.Validators;
 public class CreatePaymentInputValidator : AbstractValidator<CreatePaymentInput>
 {
     public CreatePaymentInputValidator()

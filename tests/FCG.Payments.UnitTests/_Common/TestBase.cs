@@ -1,6 +1,6 @@
-﻿using FCG.Payment.UnitTests.Factories;
+﻿using FCG.Payments.UnitTests.Factories;
 
-namespace FCG.Payment.UnitTests._Common;
+namespace FCG.Payments.UnitTests._Common;
 public class TestBase(FcgFixture fixture) : IClassFixture<FcgFixture>
 {
     protected CancellationToken CancellationToken { get; } = fixture.CancellationToken;

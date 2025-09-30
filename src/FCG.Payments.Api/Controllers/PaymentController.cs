@@ -1,6 +1,6 @@
-﻿using FCG.PaymentService.Api.Contracts;
-using FCG.PaymentService.Api.Mappings;
-using FCG.PaymentService.Application.Contracts;
+﻿using FCG.Payments.Api.Contracts;
+using FCG.Payments.Api.Mappings;
+using FCG.Payments.Application.Contracts;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

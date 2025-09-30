@@ -1,8 +1,8 @@
-﻿using FCG.PaymentService.Domain._Common.Exceptions;
+﻿using FCG.Payments.Domain._Common.Exceptions;
 using FluentValidation;
 using MediatR;
 
-namespace FCG.PaymentService.Infra.Ioc.Pipelines;
+namespace FCG.Payments.Infra.Ioc.Pipelines;
 public class FluentValidatorPipeline<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators)
     : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>

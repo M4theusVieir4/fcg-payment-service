@@ -1,6 +1,6 @@
-﻿using FCG.PaymentService.Application.Contracts;
+﻿using FCG.Payments.Application.Contracts;
 
-namespace FCG.Payment.UnitTests.Factories;
+namespace FCG.Payments.UnitTests.Factories;
 public class ModelFactory
 {
     public CreatePaymentInput CreatePaymentInput => new(

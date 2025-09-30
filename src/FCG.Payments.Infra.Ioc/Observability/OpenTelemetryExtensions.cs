@@ -3,7 +3,7 @@ using OpenTelemetry.Trace;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 
-namespace FCG.PaymentService.Infra.Ioc.Observability;
+namespace FCG.Payments.Infra.Ioc.Observability;
 public static class OpenTelemetryExtensions
 {
     public static IServiceCollection AddOpenTelemetryInfra(this IServiceCollection services, string serviceName, string serviceVersion)

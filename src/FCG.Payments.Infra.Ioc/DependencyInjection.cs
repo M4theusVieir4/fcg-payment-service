@@ -1,13 +1,14 @@
-﻿using FCG.PaymentService.Application.UseCases;
-using FCG.PaymentService.Application.Validators;
-using FCG.PaymentService.Infra.Ioc.ElasticSearchConfig;
-using FCG.PaymentService.Infra.Ioc.Pipelines;
+﻿using FCG.Payments.Application.UseCases;
+using FCG.Payments.Application.Validators;
+using FCG.Payments.Infra.Ioc.ElasticSearchConfig;
+using FCG.Payments.Infra.Ioc.HealthChecks;
+using FCG.Payments.Infra.Ioc.Pipelines;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace FCG.PaymentService.Infra.Ioc;
+namespace FCG.Payments.Infra.Ioc;
 public static class DependencyInjection
 {
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
@@ -26,14 +27,15 @@ public static class DependencyInjection
         };
 
         services
+            .AddRouting(options =>
+            {
+                options.LowercaseUrls = true;
+            })
             .AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<GetPaymentUseCase>())
             .AddValidatorsFromAssemblyContaining<CreatePaymentInputValidator>()
             .AddTransient(typeof(IPipelineBehavior<,>), typeof(FluentValidatorPipeline<,>))
-            .AddElasticSearchModule(elasticSearchSettings);
-        //services.AddScoped<IPaymentRepository, ElasticsearchPaymentRepository>();
-        //services.AddScoped<IRefundRepository, ElasticsearchRefundRepository>();
-        //services.AddScoped<IWalletRepository, ElasticsearchWalletRepository>();
-        //services.AddScoped<IWalletTransactionRepository, ElasticsearchWalletTransactionRepository>();
-        //services.AddScoped<IGatewayCallbackRepository, ElasticsearchGatewayCallbackRepository>();        
+            .AddElasticSearchModule(elasticSearchSettings)        
+            .AddHealthChecks()
+            .AddCheck<OpenSearchHealthCheck>("opensearch", tags: new[] { "search" });             
     }
 }

@@ -23,9 +23,9 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\FCG.Payments\FCG.Payments.Application\FCG.Payments.Application.csproj" />
-    <ProjectReference Include="..\..\FCG.Payments\FCG.Payments.Domain\FCG.Payments.Domain.csproj" />
+  <ItemGroup>    
+    <ProjectReference Include="..\..\src\FCG.Payments.Application\FCG.Payments.Application.csproj" />
+    <ProjectReference Include="..\..\src\FCG.Payments.Domain\FCG.Payments.Domain.csproj" />	  
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,6 @@
 ﻿using NSubstituteAutoMocker;
 
-namespace FCG.Payment.UnitTests._Common;
+namespace FCG.Payments.UnitTests._Common;
 public abstract class UseCaseTestBase<TUseCase>(FcgFixture fixture) : TestBase(fixture)
     where TUseCase : class
 {

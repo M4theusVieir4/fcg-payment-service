@@ -1,4 +1,4 @@
-﻿namespace FCG.PaymentService.Infra.Ioc.ElasticSearchConfig;
+﻿namespace FCG.Payments.Infra.Ioc.ElasticSearchConfig;
 public class ElasticSearchSettings
 {
     public required string Endpoint { get; init; }

@@ -1,6 +1,6 @@
-﻿using FCG.PaymentService.Application._Common;
+﻿using FCG.Payments.Application._Common;
 
-namespace FCG.PaymentService.Application.Contracts;
+namespace FCG.Payments.Application.Contracts;
 public record GetPaymentInput(
     Guid Id
     ) : IUseCaseInput<GetPaymentOutput>;

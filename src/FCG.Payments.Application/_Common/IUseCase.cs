@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace FCG.PaymentService.Application._Common;
+namespace FCG.Payments.Application._Common;
 public interface IUseCase<in TInput, TOutput>
     : IRequestHandler<TInput, TOutput>
     where TInput : IUseCaseInput<TOutput>

@@ -1,6 +1,6 @@
-﻿using FCG.PaymentService.Domain;
+﻿using FCG.Payments.Domain;
 
-namespace FCG.PaymentService.Application.Contracts;
+namespace FCG.Payments.Application.Contracts;
 public record GetPaymentOutput
 (    
    Guid Id,     

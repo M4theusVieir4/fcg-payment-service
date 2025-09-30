@@ -1,8 +1,8 @@
-﻿using FCG.PaymentService.Domain._Common;
+﻿using FCG.Payments.Domain._Common;
 
-namespace FCG.PaymentService.Domain;
+namespace FCG.Payments.Domain;
 public class Payment(
-        Guid? Id,
+        Guid? id,
         Guid orderId,
         Guid userId,
         decimal amount,
@@ -12,7 +12,7 @@ public class Payment(
         string provider,    
         DateTime createdAt,
         DateTime updatedAt
-) : EntityBase(Id)
+) : EntityBase(id)
 {    
     public Guid OrderId { get; private set; } = orderId;
     public Guid UserId { get; private set; } = userId;

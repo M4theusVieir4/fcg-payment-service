@@ -1,8 +1,8 @@
-﻿using FCG.PaymentService.Api.Contracts;
-using FCG.PaymentService.Application.Contracts;
+﻿using FCG.Payments.Api.Contracts;
+using FCG.Payments.Application.Contracts;
 using Riok.Mapperly.Abstractions;
 
-namespace FCG.PaymentService.Api.Mappings;
+namespace FCG.Payments.Api.Mappings;
 
 [Mapper]
 public static partial class PaymentsRequestToUseCaseMapping
