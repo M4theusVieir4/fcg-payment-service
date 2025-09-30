@@ -1,7 +1,0 @@
-{
-  "FCG.Payments.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\vieira\\source\\repos\\FCGPaymentService\\src\\FCG.Payments.Api",
-  "FCG.Payments.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\vieira\\source\\repos\\FCGPaymentService\\src\\FCG.Payments.Application",
-  "FCG.Payments.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\vieira\\source\\repos\\FCGPaymentService\\src\\FCG.Payments.Domain",
-  "FCG.Payments.Infra.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\vieira\\source\\repos\\FCGPaymentService\\src\\FCG.Payments.Infra.Data",
-  "FCG.Payments.Infra.Ioc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\vieira\\source\\repos\\FCGPaymentService\\src\\FCG.Payments.Infra.Ioc"
-}
