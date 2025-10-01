@@ -10,7 +10,7 @@ public class EntityFactory
         amount: 99.99m,
         currency: "USD",
         status: "Pending",
-        paymentMeth: "CreditCard",
+        paymentMethod: "CreditCard",
         provider: "Stripe",
         createdAt: DateTime.UtcNow,
         updatedAt: DateTime.UtcNow
