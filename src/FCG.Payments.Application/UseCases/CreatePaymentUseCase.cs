@@ -4,7 +4,8 @@ using FCG.Payments.Domain;
 using FCG.Payments.Domain._Common.Exceptions;
 
 namespace FCG.Payments.Application.UseCases;
-public class CreatePaymentUseCase(IPaymentRepository paymentRepository) : IUseCase<CreatePaymentInput, CreatePaymentOutput>
+public class CreatePaymentUseCase(
+    IPaymentRepository paymentRepository, IPaymentEventPublisher eventPublisher) : IUseCase<CreatePaymentInput, CreatePaymentOutput>
 {
     public async Task<CreatePaymentOutput> Handle(CreatePaymentInput input, CancellationToken ct)
     {
@@ -26,6 +27,8 @@ public class CreatePaymentUseCase(IPaymentRepository paymentRepository) : IUseCa
         );
 
         await paymentRepository.IndexAsync(payment, ct);
+
+        await eventPublisher.PublishPaymentCreatedAsync(payment, ct);
 
         return new CreatePaymentOutput(payment);
 

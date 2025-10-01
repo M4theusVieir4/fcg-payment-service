@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="AWSSDK.Core" Version="4.0.0.28" />
+    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="4.0.0" />
+    <PackageReference Include="AWSSDK.SQS" Version="4.0.0.22" />
     <PackageReference Include="MediatR.Extensions.FluentValidation.AspNetCore" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.9" />
     <PackageReference Include="OpenSearch.Client" Version="1.8.0" />

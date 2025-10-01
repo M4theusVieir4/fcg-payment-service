@@ -1,5 +1,10 @@
-﻿using FCG.Payments.Application.UseCases;
+﻿using Amazon;
+using Amazon.Runtime;
+using Amazon.SQS;
+using FCG.Payments.Application.UseCases;
 using FCG.Payments.Application.Validators;
+using FCG.Payments.Domain;
+using FCG.Payments.Infra.Data;
 using FCG.Payments.Infra.Ioc.ElasticSearchConfig;
 using FCG.Payments.Infra.Ioc.HealthChecks;
 using FCG.Payments.Infra.Ioc.Pipelines;
@@ -13,6 +18,14 @@ public static class DependencyInjection
 {
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
+        var sqsSettings = configuration.GetSection("AWS:SQS");
+        var region = RegionEndpoint.GetBySystemName(sqsSettings["Region"]);
+
+        var awsCredentials = new BasicAWSCredentials(
+            sqsSettings["AccessKey"],
+            sqsSettings["SecretKey"]
+        );
+
         var elasticSearchSettings = new ElasticSearchSettings
         {
             Endpoint = configuration["Elasticsearch:Uri"] ?? throw new ArgumentNullException("Elasticsearch:Uri"),
@@ -36,6 +49,19 @@ public static class DependencyInjection
             .AddTransient(typeof(IPipelineBehavior<,>), typeof(FluentValidatorPipeline<,>))
             .AddElasticSearchModule(elasticSearchSettings)        
             .AddHealthChecks()
-            .AddCheck<OpenSearchHealthCheck>("opensearch", tags: new[] { "search" });             
+            .AddCheck<OpenSearchHealthCheck>("opensearch", tags: new[] { "search" });
+
+        services.AddSingleton<IAmazonSQS>(sp =>
+            new AmazonSQSClient(awsCredentials, region)
+        );
+
+        services.AddScoped<IPaymentEventPublisher>(sp =>
+            new PaymentEventPublisher(
+                sp.GetRequiredService<IAmazonSQS>(),
+                configuration["AWS:SQS:PaymentsQueueUrl"]
+                    ?? throw new ArgumentNullException("AWS:SQS:PaymentsQueueUrl")
+            )
+        );
+
     }
 }
