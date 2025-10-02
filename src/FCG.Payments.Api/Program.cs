@@ -1,23 +1,32 @@
+using FCG.Payments.Api._Common.HealthChecks;
 using FCG.Payments.Api.Middlewares;
 using FCG.Payments.Infra.Ioc;
 using FCG.Payments.Infra.Ioc.Observability;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
-var appSettings = builder.Services;
 
+builder.Configuration
+    .AddEnvironmentVariables();
 
-builder.Services.AddOpenTelemetryInfra(
+var services = builder.Services;
+
+ services.AddOpenTelemetryInfra(
     serviceName: "FCGPaymentService",
     serviceVersion: "1.0"
 );
 
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddOpenApi();
-builder.Services.AddInfrastructure(builder.Configuration);
+services.AddControllers();
+services.AddEndpointsApiExplorer();
+services.AddSwaggerGen();
+services.AddOpenApi();
+services.AddInfrastructure(builder.Configuration);
+
+services
+    .AddHealthChecks()
+    .AddCheck<OpenSearchHealthCheck>("opensearch");
 
 var app = builder.Build();
 
@@ -28,9 +37,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-app.UseMiddleware<ExceptionMiddleware>();
-app.UseAuthorization();
+app
+    .UseMiddleware<ExceptionMiddleware>()
+    .UseAuthorization()
+    .UseHttpMetrics();
 
 app.MapHealthChecks(
     "/health",
@@ -40,6 +50,8 @@ app.MapHealthChecks(
             .WriteHealthCheckUIResponse
     }
 );
+
+app.MapMetrics("/metrics");
 
 app.MapControllers();
 app.Run();
