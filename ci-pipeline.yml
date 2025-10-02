@@ -32,6 +32,8 @@ phases:
 
   pre_build:
     commands:
+      - cd src
+
       - echo Restaurando dependências
       - dotnet restore
 
@@ -44,6 +46,8 @@ phases:
 
   build:
     commands:
+      - cd src
+
       - echo Construindo Solução
       - dotnet build
         --no-restore
@@ -65,7 +69,7 @@ phases:
       - echo Construindo imagem Docker
       - docker build
         --tag $ECR_REPOSITORY_URI:$IMAGE_TAG
-        --file src/FCG.Games.Api/Dockerfile
+        --file FCG.Payments.Api/Dockerfile
         --build-arg BUILD_CONFIGURATION=$BUILD_CONFIGURATION
         .
       - docker tag $ECR_REPOSITORY_URI:$IMAGE_TAG $ECR_REPOSITORY_URI:latest
