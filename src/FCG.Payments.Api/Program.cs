@@ -1,4 +1,3 @@
-using FCG.Payments.Api._Common.HealthChecks;
 using FCG.Payments.Api.Middlewares;
 using FCG.Payments.Infra.Ioc;
 using FCG.Payments.Infra.Ioc.Observability;
@@ -23,10 +22,6 @@ services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
 services.AddOpenApi();
 services.AddInfrastructure(builder.Configuration);
-
-services
-    .AddHealthChecks()
-    .AddCheck<OpenSearchHealthCheck>("opensearch");
 
 var app = builder.Build();
 

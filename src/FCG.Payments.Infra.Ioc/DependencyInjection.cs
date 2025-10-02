@@ -21,23 +21,16 @@ public static class DependencyInjection
         var sqsSettings = configuration.GetSection("AWS:SQS");
         var region = RegionEndpoint.GetBySystemName(sqsSettings["Region"]);
 
-        var awsCredentials = new BasicAWSCredentials(
-            sqsSettings["AccessKey"],
-            sqsSettings["SecretKey"]
-        );
+        var elasticSearchSettings = configuration
+            .Get<AppSettings>()?
+            .ElasticSearchSettings;
 
-        var elasticSearchSettings = new ElasticSearchSettings
-        {
-            Endpoint = configuration["Elasticsearch:Uri"] ?? throw new ArgumentNullException("Elasticsearch:Uri"),
-            AccessKey = Environment.GetEnvironmentVariable("AWS_ACCESS_KEY_ID")
-                        ?? configuration["Elasticsearch:AccessKey"]
-                        ?? throw new ArgumentNullException("Elasticsearch:AccessKey"),
-            Secret = Environment.GetEnvironmentVariable("AWS_SECRET_ACCESS_KEY")
-                        ?? configuration["Elasticsearch:SecretKey"]
-                        ?? throw new ArgumentNullException("Elasticsearch:SecretKey"),
-            Region = configuration["Elasticsearch:Region"] ?? throw new ArgumentNullException("Elasticsearch:Region"),
-            IndexName = configuration["Elasticsearch:DefaultIndex"] ?? throw new ArgumentNullException("Elasticsearch:DefaultIndex")
-        };
+        ArgumentNullException.ThrowIfNull(elasticSearchSettings);
+
+        var awsCredentials = new BasicAWSCredentials(
+            elasticSearchSettings.AccessKey,
+            elasticSearchSettings.Secret
+        );
 
         services
             .AddRouting(options =>
