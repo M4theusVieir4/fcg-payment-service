@@ -80,5 +80,5 @@ phases:
 
 artifacts:
   files:
-    - TestResults/**/*
-    - CoverageReport/**/*
+    - src/TestResults/**/*
+    - src/CoverageReport/**/*
