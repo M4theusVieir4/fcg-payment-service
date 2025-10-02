@@ -1,0 +1,82 @@
+version: 0.2
+
+env:
+  variables:
+    BUILD_CONFIGURATION: "Release"
+
+phases:
+  # TODO: Create a custom image for build
+  install:
+    commands:
+      - echo Instalando .NET 9.0 SDK
+      - rm -f /codebuild/global.json || true
+      - curl -sSL https://dot.net/v1/dotnet-install.sh -o dotnet-install.sh
+      - chmod +x dotnet-install.sh
+      - ./dotnet-install.sh 
+        --version 9.0.302
+        --install-dir /root/dotnet
+      - export PATH=/root/dotnet:$PATH
+      - export PATH="$PATH:/root/.dotnet/tools"
+
+      - echo Instalando Docker
+      - nohup /usr/local/bin/dockerd-entrypoint.sh &
+      - timeout 15 sh -c "until docker info; do echo .; sleep 1; done"
+      - echo Docker inicializado
+
+      # TODO: Configure ReportGenerator to work properly
+      # - echo Instalando ReportGenerator
+      # - dotnet tool install --global dotnet-reportgenerator-globaltool
+
+      - echo Configurando Variáveis
+      - export IMAGE_TAG=$CODEBUILD_BUILD_NUMBER
+
+  pre_build:
+    commands:
+      - echo Restaurando dependências
+      - dotnet restore
+
+      - echo Autenticando no ECR
+      - aws ecr get-login-password
+        --region $AWS_REGION
+        | docker login
+          --username AWS
+          --password-stdin $ECR_REPOSITORY_DOMAIN
+
+  build:
+    commands:
+      - echo Construindo Solução
+      - dotnet build
+        --no-restore
+        --configuration TestAutomation
+      
+      - echo Executando Testes
+      - dotnet test
+        --collect:"XPlat Code Coverage"
+        --results-directory ./TestResults
+        --logger "trx"
+
+      # TODO: Configure ReportGenerator to work properly
+      # - echo Gerando Relatório de Testes
+      # - reportgenerator
+      #   -reports:./TestResults/*/coverage.cobertura.xml
+      #   -targetdir:CoverageReport
+      #   -reporttypes:Html
+
+      - echo Construindo imagem Docker
+      - docker build
+        --tag $ECR_REPOSITORY_URI:$IMAGE_TAG
+        --file src/FCG.Games.Api/Dockerfile
+        --build-arg BUILD_CONFIGURATION=$BUILD_CONFIGURATION
+        .
+      - docker tag $ECR_REPOSITORY_URI:$IMAGE_TAG $ECR_REPOSITORY_URI:latest
+
+  post_build:
+    commands:
+      - echo Enviando imagem para o ECR
+      - docker push $ECR_REPOSITORY_URI:$IMAGE_TAG
+      - docker push $ECR_REPOSITORY_URI:latest
+
+artifacts:
+  files:
+    - TestResults/**/*
+    - CoverageReport/**/*
