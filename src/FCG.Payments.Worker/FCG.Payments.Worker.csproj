@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>dotnet-FCG.Payments.Worker-f1f73a54-a631-4812-b071-4cb1cf48946e</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <Configurations>Debug;Release;TestAutomation</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
