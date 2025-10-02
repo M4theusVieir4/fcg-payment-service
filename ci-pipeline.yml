@@ -46,8 +46,6 @@ phases:
 
   build:
     commands:
-      - cd src
-
       - echo Construindo Solução
       - dotnet build
         --no-restore
