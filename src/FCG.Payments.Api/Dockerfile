@@ -2,10 +2,18 @@
 
 # This stage is used when running from VS in fast mode (Default for Debug configuration)
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
+
+# Install curl for healthcheck
+USER root
+RUN apt-get update && apt-get install -y curl
+
 USER $APP_UID
 WORKDIR /app
 EXPOSE 8081
 
+# Add healthcheck
+HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
+    CMD curl --fail http://localhost:8081/health || exit 1
 
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
