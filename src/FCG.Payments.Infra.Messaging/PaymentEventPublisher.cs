@@ -3,7 +3,7 @@ using Amazon.SQS.Model;
 using FCG.Payments.Domain;
 using Newtonsoft.Json;
 
-namespace FCG.Payments.Infra.Data;
+namespace FCG.Payments.Infra.Messaging;
 public class PaymentEventPublisher : IPaymentEventPublisher
 {
     private readonly IAmazonSQS _sqs;
