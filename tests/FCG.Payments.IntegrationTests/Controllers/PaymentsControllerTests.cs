@@ -1,4 +1,6 @@
-﻿using Elastic.Clients.Elasticsearch.MachineLearning;
+﻿using Amazon.SQS;
+using Amazon.SQS.Model;
+using Elastic.Clients.Elasticsearch.MachineLearning;
 using FCG.Payments.Api._Common;
 using FCG.Payments.Api.Contracts;
 using FCG.Payments.Domain;
@@ -10,13 +12,14 @@ namespace FCG.Payments.IntegrationTests.Controllers;
 public class PaymentsControllerTests : ControllerTestBase
 {
     private IPaymentRepository _paymentRepository;
+    private IPaymentEventPublisher _paymentEventRepository;
     public PaymentsControllerTests(FcgFixture fixture) : base(fixture, "payment")
     {
         _paymentRepository = GetService<IPaymentRepository>();
+        _paymentEventRepository = GetService<IPaymentEventPublisher>();
     }
 
-    //[Fact]
-    // TODO: Fix this test
+    [Fact]
     public async Task ShouldCreatePaymentAsync()
     {
         var request = ModelFactory.CreatePaymentRequest
@@ -33,12 +36,9 @@ public class PaymentsControllerTests : ControllerTestBase
         response.OrderId.ShouldBe(request.OrderId);
         response.UserId.ShouldBe(request.UserId);
         response.Amount.ShouldBe(request.Amount);
-        response.Currency.ShouldBe(request.Currency);
-        //response.Status.ShouldBe("Created");
+        response.Currency.ShouldBe(request.Currency);        
         response.PaymentMethod.ShouldBe(request.PaymentMethod);
         response.Provider.ShouldBe(request.Provider);
-        //response.CreatedAt.ShouldBeInRange(DateTime.UtcNow.AddSeconds(-5), DateTime.UtcNow.AddSeconds(5));
-        //response.UpdatedAt.ShouldBeInRange(DateTime.UtcNow.AddSeconds(-5), DateTime.UtcNow.AddSeconds(5));
 
         var payment = await _paymentRepository
             .GetByIdAsync(response.Id, CancellationToken);
@@ -52,6 +52,9 @@ public class PaymentsControllerTests : ControllerTestBase
         payment.Status.ShouldBe(response.Status);
         payment.PaymentMethod.ShouldBe(response.PaymentMethod);
         payment.Provider.ShouldBe(response.Provider);
+
+        var messages = await _paymentEventRepository.ListMessagesAsync(maxMessages: 10, CancellationToken);
+        messages.ShouldContain(m => m.Id == response.Id);
     }
 
     [Fact]
