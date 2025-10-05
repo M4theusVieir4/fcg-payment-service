@@ -21,16 +21,16 @@ O objetivo principal é demonstrar a aplicação de conceitos de computação em
 
 ## 🎯 Funcionalidades
 
-- 💳 **Processamento de Pagamentos**: Gestão completa do ciclo de vida de pagamentos
-- 🔄 **Pagamentos Assíncronos**: Processamento via mensageria com AWS SQS
-- 📊 **Busca e Indexação**: Integração com Elasticsearch para consultas rápidas
-- 🎭 **Arquitetura Hexagonal**: Separação clara entre domínio, aplicação e infraestrutura
-- 🚀 **CQRS com MediatR**: Separação de comandos e queries
-- 📈 **Observabilidade**: Monitoramento com Prometheus e métricas customizadas
-- ⚡ **Worker Service**: Consumidor dedicado de mensagens SQS
-- 🧪 **Testes Abrangentes**: Cobertura com testes unitários e de integração
-- 🔒 **Validação Robusta**: Validação de dados com FluentValidation
-- 🌐 **API REST**: Endpoints bem documentados para integração
+- **Processamento de Pagamentos**: Gestão completa do ciclo de vida de pagamentos
+- **Pagamentos Assíncronos**: Processamento via mensageria com AWS SQS
+- **Busca e Indexação**: Integração com Elasticsearch para consultas rápidas
+- **Arquitetura Hexagonal**: Separação clara entre domínio, aplicação e infraestrutura
+- **CQRS com MediatR**: Separação de comandos e queries
+- **Observabilidade**: Monitoramento com Prometheus e métricas customizadas
+- **Worker Service**: Consumidor dedicado de mensagens SQS
+- **Testes Abrangentes**: Cobertura com testes unitários e de integração
+- **Validação Robusta**: Validação de dados com FluentValidation
+- **API REST**: Endpoints bem documentados para integração
 
 ## 🏗️ Arquitetura
 
