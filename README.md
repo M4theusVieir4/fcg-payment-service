@@ -406,16 +406,6 @@ curl -X 'GET' \
 }
 ```
 
-#### Listar Pagamentos do Usuário
-```http
-GET /api/payments?userId={userId}&page=1&pageSize=20
-```
-
-#### Cancelar Pagamento
-```http
-POST /api/payments/{paymentId}/cancel
-```
-
 ## 📊 Métricas do Prometheus
 
 O serviço expõe diversas métricas customizadas:
