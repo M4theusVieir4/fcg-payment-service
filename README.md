@@ -493,6 +493,39 @@ dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=lcov
 [Fact]
 public async Task ShouldCreatePaymentAsync()
 {
+    var input = ModelFactory.CreatePaymentInput;
+
+    var output = await UseCase.Handle(input, CancellationToken);
+
+    output.ShouldNotBeNull();
+    output.Id.ShouldNotBe(Guid.Empty);
+    output.OrderId.ShouldBe(input.OrderId);
+    output.UserId.ShouldBe(input.UserId);
+    output.Amount.ShouldBe(input.Amount);
+    output.Currency.ShouldBe(input.Currency);
+    output.Status.ShouldBe(input.Status);
+    output.PaymentMethod.ShouldBe(input.PaymentMethod);
+    output.Provider.ShouldBe(input.Provider);
+    output.CreatedAt.ShouldBe(input.CreatedAt);
+    output.UpdatedAt.ShouldBe(input.UpdatedAt);
+
+    await _paymentRepository
+        .Received(1)
+        .IndexAsync(
+            Arg.Any<Payment>(),
+            CancellationToken
+        );
+
+    await _paymentEventPublisher.Received(1)
+        .PublishPaymentCreatedAsync(Arg.Is<Payment>(p => p.Id == output.Id), CancellationToken);
+}
+```
+
+#### Teste de Integração - SQS, ElasticSearch
+```csharp
+[Fact]
+public async Task ShouldCreatePaymentAsync()
+{
     var request = ModelFactory.CreatePaymentRequest
         with
     { Id = default };
@@ -526,25 +559,6 @@ public async Task ShouldCreatePaymentAsync()
 
     var messages = await _paymentEventRepository.ListMessagesAsync(maxMessages: 10, CancellationToken);
     messages.ShouldContain(m => m.Id == response.Id);
-}
-```
-
-#### Teste de Integração - SQS
-```csharp
-[Fact]
-public async Task SqsPublisher_ShouldPublishMessage_AndWorkerShouldConsume()
-{
-    // Arrange
-    using var testContainer = new SqsTestContainer();
-    await testContainer.StartAsync();
-
-    // Act
-    await _sqsPublisher.PublishAsync(paymentMessage);
-    await Task.Delay(5000); // Aguarda processamento
-
-    // Assert
-    var payment = await _elasticsearchService.GetPaymentAsync(paymentId);
-    payment.Status.Should().Be(PaymentStatus.Completed);
 }
 ```
 
