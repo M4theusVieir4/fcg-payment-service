@@ -115,11 +115,46 @@ public class Worker : BackgroundService
           
         }
     }
+    private async Task<bool> IsPaymentCompletedAsync(Guid paymentId)
+    {
+        try
+        {
+            var getResponse = await _openSearchClient.GetAsync<PaymentMessage>(paymentId, g => g.Index("payments"));
+
+            if (!getResponse.Found)
+            {
+                _logger.LogInformation("Pagamento {PaymentId} não encontrado no OpenSearch. Será processado normalmente.", paymentId);
+                return false;
+            }
+
+            var currentStatus = getResponse.Source?.Status;
+
+            if (string.Equals(currentStatus, PaymentStatus.Completed.ToString(), StringComparison.OrdinalIgnoreCase))
+            {
+                _logger.LogInformation("Pagamento {PaymentId} já está COMPLETED no OpenSearch. Ignorando processamento.", paymentId);
+                return true;
+            }
+
+            _logger.LogInformation("Pagamento {PaymentId} está com status {Status}. Pode ser processado.", paymentId, currentStatus);
+            return false;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Erro ao verificar status do pagamento {PaymentId} no OpenSearch", paymentId);
+            return false; 
+        }
+    }
 
     private async Task ProcessPaymentAsync(PaymentMessage payment)
     {
         try
         {
+            if (await IsPaymentCompletedAsync(payment.Id))
+            {
+                _logger.LogInformation("Pagamento {PaymentId} já está COMPLETED. Ignorando processamento.", payment.Id);
+                return;
+            }
+
             _logger.LogInformation("Processando pagamento {PaymentId} para Order {OrderId}",
             payment.Id, payment.OrderId);
 
@@ -130,7 +165,7 @@ public class Worker : BackgroundService
                 await Task.Delay(2000);
 
                 var updateResponse = await _openSearchClient.UpdateAsync<object>(payment.Id, u => u
-                    .Index("pagamentos")
+                    .Index("payments")
                     .Doc(new
                     {
                         Status = PaymentStatus.Completed.ToString(),
@@ -151,7 +186,7 @@ public class Worker : BackgroundService
             _logger.LogError(ex, "Erro ao processar pagamento {PaymentId}. Marcando como Falha.", payment.Id);
 
             var failResponse = await _openSearchClient.UpdateAsync<object>(payment.Id, u => u
-                .Index("pagamentos")
+                .Index("payments")
                 .Doc(new
                 {
                     Status = PaymentStatus.Failed.ToString(),

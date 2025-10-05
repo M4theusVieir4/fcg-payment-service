@@ -1,6 +1,6 @@
 ﻿namespace FCG.Payments.Worker.Dto;
 public record PaymentMessage(
-    Guid Id,
+        Guid Id,
         Guid OrderId,
         Guid UserId,
         decimal Amount,
