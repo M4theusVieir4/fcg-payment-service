@@ -93,14 +93,14 @@ O objetivo principal é demonstrar a aplicação de conceitos de computação em
 #### Application Layer
 - **Commands**: Operações que modificam estado (CreatePayment, ProcessPayment)
 - **UseCases**: Implementação dos casos de uso do sistema
-- - CreatePayment: Criação de novo pagamento
-- - GetPaymentById: Consulta de pagamento por ID
+  - CreatePayment: Criação de novo pagamento
+  - GetPaymentById: Consulta de pagamento por ID
 - **Contracts**: DTOs de entrada (CreatePaymentInput)
 - **Validators**: Validação com FluentValidation (CreatePaymentInputValidator)
 
 #### Domain Layer
 - **Entities**:
--  - Payment: Entidade principal com OrderId, UserId, Amount, Currency, Status, PaymentMethod e Provider
+  - `Payment`: Entidade principal com OrderId, UserId, Amount, Currency, Status, PaymentMethod e Provider
 - **EntityBase**: Classe base para entidades com Id
 - **IPaymentRepository**: Interface para persistência
 - **IPaymentEventPublisher**: Interface para publicação de eventos
