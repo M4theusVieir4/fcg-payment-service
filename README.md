@@ -274,7 +274,7 @@ PaymentService/
 
 ### Pré-requisitos
 
-- .NET 8 SDK
+- .NET 9 SDK
 - Docker e Docker Compose
 - AWS CLI configurado
 - Conta AWS com permissões para SQS e Elasticsearch
