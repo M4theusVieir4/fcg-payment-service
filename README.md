@@ -143,7 +143,7 @@ O objetivo principal é demonstrar a aplicação de conceitos de computação em
 ## 🛠️ Tecnologias Utilizadas
 
 ### Core
-- **Linguagem**: C# (.NET 8)
+- **Linguagem**: C# (.NET 9)
 - **Arquitetura**: Hexagonal (Ports & Adapters)
 - **Padrões**: CQRS, Mediator, Repository, Unit of Work
 
