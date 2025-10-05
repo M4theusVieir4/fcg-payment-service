@@ -501,19 +501,30 @@ dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=lcov
 #### Teste Unitário - Command Handler
 ```csharp
 [Fact]
-public async Task CreatePaymentCommandHandler_ShouldCreatePayment_WhenValidRequest()
+public async Task ShouldCreatePaymentAsync()
 {
-    // Arrange
-    var command = new CreatePaymentCommand { /* ... */ };
-    var handler = new CreatePaymentCommandHandler(/* dependencies */);
+    var input = ModelFactory.CreatePaymentInput;
 
-    // Act
-    var result = await handler.Handle(command, CancellationToken.None);
+    var output = await UseCase.Handle(input, CancellationToken);
 
-    // Assert
-    result.Should().NotBeNull();
-    result.PaymentId.Should().NotBeEmpty();
-    result.Status.Should().Be(PaymentStatus.Pending);
+    output.ShouldNotBeNull();
+    output.Id.ShouldNotBe(Guid.Empty);
+    output.OrderId.ShouldBe(input.OrderId);
+    output.UserId.ShouldBe(input.UserId);
+    output.Amount.ShouldBe(input.Amount);
+    output.Currency.ShouldBe(input.Currency);
+    output.Status.ShouldBe(input.Status);
+    output.PaymentMethod.ShouldBe(input.PaymentMethod);
+    output.Provider.ShouldBe(input.Provider);
+    output.CreatedAt.ShouldBe(input.CreatedAt);
+    output.UpdatedAt.ShouldBe(input.UpdatedAt);
+
+    await _paymentRepository
+        .Received(1)
+        .IndexAsync(
+            Arg.Any<Payment>(),
+            CancellationToken
+        );
 }
 ```
 
