@@ -71,6 +71,7 @@ phases:
         --build-arg BUILD_CONFIGURATION=$BUILD_CONFIGURATION
         .
       - docker tag $ECR_REPOSITORY_URI:$IMAGE_TAG $ECR_REPOSITORY_URI:latest
+      - cd ..
 
   post_build:
     commands:
