@@ -86,29 +86,37 @@ O objetivo principal é demonstrar a aplicação de conceitos de computação em
 ```
 #### API Layer
 - **Controllers**: Endpoints REST para operações de pagamento
+- **Contracts**: Contratos de entrada e saída da API
 - **Middlewares**: Tratamento de exceções e logging
-- **Filters**: Validação e formatação de respostas
+- **Mappings**: Mapeamento entre DTOs e entidades
 
 #### Application Layer
 - **Commands**: Operações que modificam estado (CreatePayment, ProcessPayment)
-- **Queries**: Operações de leitura (GetPayment, ListPayments)
-- **Handlers**: Lógica de processamento com MediatR
-- **Validators**: Validação de entrada com FluentValidation
-- **DTOs**: Objetos de transferência de dados
+- **UseCases**: Implementação dos casos de uso do sistema
+- - CreatePayment: Criação de novo pagamento
+- - GetPaymentById: Consulta de pagamento por ID
+- **Contracts**: DTOs de entrada (CreatePaymentInput)
+- **Validators**: Validação com FluentValidation (CreatePaymentInputValidator)
 
 #### Domain Layer
-- **Entities**: Payment, Transaction, PaymentMethod
-- **Value Objects**: Money, PaymentStatus, PaymentType
-- **Domain Events**: PaymentCreated, PaymentProcessed, PaymentFailed
-- **Domain Services**: PaymentProcessor, PaymentValidator
-- **Interfaces**: Contratos para portas (ports)
+- **Entities**:
+-  - Payment: Entidade principal com OrderId, UserId, Amount, Currency, Status, PaymentMethod e Provider
+- **EntityBase**: Classe base para entidades com Id
+- **IPaymentRepository**: Interface para persistência
+- **IPaymentEventPublisher**: Interface para publicação de eventos
 
-#### Infrastructure Layer
-- **Repositories**: Implementação de persistência
-- **SQS Service**: Publicação e consumo de mensagens
-- **Elasticsearch Service**: Indexação e busca
-- **Prometheus Metrics**: Coleta e exposição de métricas
-- **External APIs**: Integração com gateways de pagamento
+#### Infrastructure Layer - Data
+- **PaymentRepository**: Implementação de persistência com Elasticsearch
+
+#### Infrastructure Layer - IoC
+- **DependencyInjection**: Registro de todas as dependências
+- **ElasticSearchConfig**: Configuração do cliente Elasticsearch
+- **HealthChecks**: Verificações de saúde da aplicação
+- **Observability**: Configuração do OpenTelemetry
+- **Pipelines**: Configuração de pipelines de comportamento (MediatR)
+
+  #### Infrastructure Layer - Messaging
+  - **PaymentEventPublisher**: Publicação de eventos no AWS SQS
 
 #### Worker Service
 - **Message Consumer**: Processa mensagens da fila SQS
@@ -118,27 +126,37 @@ O objetivo principal é demonstrar a aplicação de conceitos de computação em
 
 ### Fluxo de Pagamento Assíncrono
 
-```
-1. Cliente solicita pagamento
+1. Cliente envia requisição POST /api/payment
         │
         ▼
-2. API cria registro inicial
+2. PaymentController recebe a requisição
         │
         ▼
-3. Mensagem publicada no SQS
+3. CreatePaymentInputValidator valida os dados
         │
         ▼
-4. Worker Service consome mensagem
+4. UseCase cria entidade Payment
         │
         ▼
-5. Processamento do pagamento
+5. PaymentRepository persiste no Elasticsearch
         │
         ▼
-6. Atualização no Elasticsearch
+6. PaymentEventPublisher envia mensagem para SQS
         │
         ▼
-7. Cliente consulta status
-```
+7. Resposta 201 Created retornada ao cliente
+        │
+        ▼
+8. Worker.cs (FCG.Payments.Worker) consome mensagem do SQS
+        │
+        ▼
+9. Worker processa o pagamento
+        │
+        ▼
+10. Worker atualiza status no Elasticsearch
+        │
+        ▼
+11. Cliente consulta GET /api/payment/{id} para verificar status
 
 ## 🛠️ Tecnologias Utilizadas
 
@@ -172,103 +190,75 @@ O objetivo principal é demonstrar a aplicação de conceitos de computação em
 
 ## 📦 Estrutura do Projeto
 
-```
-PaymentService/
-├── src/
-│   ├── PaymentService.API/
-│   │   ├── Controllers/
-│   │   │   └── PaymentsController.cs
-│   │   ├── Middlewares/
-│   │   │   └── ExceptionHandlingMiddleware.cs
-│   │   ├── Program.cs
-│   │   └── appsettings.json
-│   │
-│   ├── PaymentService.Application/
-│   │   ├── Commands/
-│   │   │   ├── CreatePayment/
-│   │   │   │   ├── CreatePaymentCommand.cs
-│   │   │   │   ├── CreatePaymentCommandHandler.cs
-│   │   │   │   └── CreatePaymentCommandValidator.cs
-│   │   │   └── ProcessPayment/
-│   │   │       ├── ProcessPaymentCommand.cs
-│   │   │       └── ProcessPaymentCommandHandler.cs
-│   │   ├── Queries/
-│   │   │   ├── GetPayment/
-│   │   │   │   ├── GetPaymentQuery.cs
-│   │   │   │   └── GetPaymentQueryHandler.cs
-│   │   │   └── ListPayments/
-│   │   │       ├── ListPaymentsQuery.cs
-│   │   │       └── ListPaymentsQueryHandler.cs
-│   │   ├── DTOs/
-│   │   ├── Mappings/
-│   │   └── Interfaces/
-│   │
-│   ├── PaymentService.Domain/
-│   │   ├── Entities/
-│   │   │   ├── Payment.cs
-│   │   │   └── Transaction.cs
-│   │   ├── ValueObjects/
-│   │   │   ├── Money.cs
-│   │   │   ├── PaymentStatus.cs
-│   │   │   └── PaymentMethod.cs
-│   │   ├── Events/
-│   │   │   ├── PaymentCreatedEvent.cs
-│   │   │   └── PaymentProcessedEvent.cs
-│   │   ├── Services/
-│   │   │   └── PaymentDomainService.cs
-│   │   └── Interfaces/
-│   │       ├── IPaymentRepository.cs
-│   │       └── IPaymentGateway.cs
-│   │
-│   ├── PaymentService.Infrastructure/
-│   │   ├── Repositories/
-│   │   │   └── PaymentRepository.cs
-│   │   ├── Messaging/
-│   │   │   ├── SqsPublisher.cs
-│   │   │   └── SqsConsumer.cs
-│   │   ├── Search/
-│   │   │   └── ElasticsearchService.cs
-│   │   ├── Metrics/
-│   │   │   └── PrometheusMetrics.cs
-│   │   └── ExternalServices/
-│   │       └── PaymentGatewayService.cs
-│   │
-│   └── PaymentService.Worker/
-│       ├── Workers/
-│       │   └── PaymentProcessorWorker.cs
-│       ├── Handlers/
-│       │   └── PaymentMessageHandler.cs
-│       ├── Program.cs
-│       └── appsettings.json
+FCG.Payments/ (9 projetos)
 │
-├── tests/
-│   ├── PaymentService.UnitTests/
-│   │   ├── Application/
-│   │   │   ├── Commands/
-│   │   │   └── Queries/
-│   │   ├── Domain/
-│   │   │   ├── Entities/
-│   │   │   └── Services/
-│   │   └── Infrastructure/
+├── 📂 FCG.Payments.Api
+│   ├── 📁 Controllers/
+│   │   └── PaymentController.cs
+│   ├── 📁 Contracts/
+│   ├── 📁 Mappings/
+│   ├── 📁 Middlewares/
+│   ├── 🐳 Dockerfile
+│   ├── 🌐 FCGPaymentService.http
+│   ├── ⚙️ Program.cs
+│   └── ⚙️ appsettings.json
+│
+├── 📂 FCG.Payments.Application
+│   ├── 📁 _Common/
+│   ├── 📁 Contracts/
+│   │   └── CreatePaymentInput.cs
+│   ├── 📁 UseCases/
+│   │   ├── CreatePayment/
+│   │   ├── GetPaymentById/
+│   │   └── ...
+│   └── 📁 Validators/
+│       └── CreatePaymentInputValidator.cs
+│
+├── 📂 FCG.Payments.Domain
+│   ├── 📁 _Common/
+│   │   └── EntityBase.cs
+│   ├── 📁 Entities/
+│   │   └── Payment.cs
+│   ├── 📄 IPaymentEventPublisher.cs
+│   └── 📄 IPaymentRepository.cs
+│
+├── 📂 FCG.Payments.Infra.Data
+│   └── 📄 PaymentRepository.cs
+│
+├── 📂 FCG.Payments.Infra.IoC
+│   ├── 📁 ElasticSearchConfig/
+│   ├── 📁 HealthChecks/
+│   ├── 📁 Observability/
+│   ├── 📁 Pipelines/
+│   └── 📄 DependencyInjection.cs
+│
+├── 📂 FCG.Payments.Infra.Messaging
+│   └── 📄 PaymentEventPublisher.cs
+│
+├── 📂 FCG.Payments.Worker
+│   ├── 📁 Connected Services/
+│   ├── 📁 Properties/
+│   ├── 📁 Dto/
+│   ├── 🐳 Dockerfile
+│   ├── ⚙️ Program.cs
+│   ├── ⚙️ appsettings.json
+│   └── 🔧 Worker.cs
+│
+├── 📂 Tests/
+│   ├── 📂 FCG.Payments.IntegrationTests
+│   │   ├── 📁 _Common/
+│   │   ├── 📁 Controllers/
+│   │   ├── 📁 Factories/
+│   │   └── 📄 FcgFixture.cs
 │   │
-│   └── PaymentService.IntegrationTests/
-│       ├── API/
-│       │   └── PaymentsControllerTests.cs
-│       ├── Infrastructure/
-│       │   ├── SqsTests.cs
-│       │   └── ElasticsearchTests.cs
-│       └── Worker/
-│           └── PaymentProcessorTests.cs
+│   └── 📂 FCG.Payments.UnitTests
+│       ├── 📁 _Common/
+│       ├── 📁 Factories/
+│       ├── 📁 UseCases/
+│       ├── 📁 Validators/
+│       └── 📄 FcgFixture.cs
 │
-├── docs/
-│   ├── API_DOCUMENTATION.md
-│   ├── ARCHITECTURE.md
-│   └── DEPLOYMENT.md
-│
-├── docker-compose.yml
-├── Dockerfile
-└── README.md
-```
+└── 📄 FCG.Payments.sln
 
 ## 🚀 Como Usar
 
@@ -283,7 +273,7 @@ PaymentService/
 
 1. **Clone o repositório**
 ```bash
-git clone https://github.com/seu-usuario/fcg-payment-service.git
+git clone https://github.com/M4theusVieir4/fcg-payment-service.git
 cd fcg-payment-service
 ```
 
@@ -296,21 +286,26 @@ cp appsettings.example.json appsettings.json
 3. **Configure AWS**
 ```json
 {
-  "AWS": {
+  "ElasticSearchSettings": {
+    "Endpoint": "http://elasticsearch:9200",
+    "AccessKey": "",
+    "Secret": "",
     "Region": "us-east-1",
+    "IndexName": "payments"
+  },
+  "AWS": {
     "SQS": {
-      "QueueUrl": "https://sqs.us-east-1.amazonaws.com/123456789/payment-queue",
-      "MaxMessages": 10,
-      "WaitTimeSeconds": 20
-    },
-    "Elasticsearch": {
-      "Endpoint": "https://your-elasticsearch-endpoint.us-east-1.es.amazonaws.com",
-      "Index": "payments"
+      "PaymentsQueueUrl": "https://sqs.us-east-1.amazonaws.com/123456789012/PaymentsQueue",
+      "Region": "us-east-1",
+      "AccessKey": "SUA_CHAVE_AWS",
+      "SecretKey": "SUA_CHAVE_SECRETA"
     }
   },
-  "Prometheus": {
-    "Port": 9090,
-    "Endpoint": "/metrics"
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
   }
 }
 ```
@@ -334,53 +329,76 @@ dotnet run
 ### Endpoints da API
 
 #### Criar Pagamento (Assíncrono)
-```http
-POST /api/payments
-Content-Type: application/json
-
+```
+curl -X 'POST' \
+  'https://localhost:7157/api/payment' \
+  -H 'accept: text/plain' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "orderId": "a3c9f1d2-4b7e-4f99-9c2f-8e7a5b1d2c3f",
+  "userId": "b1d2f3e4-5a6b-7c8d-9e0f-1a2b3c4d5e6f",
+  "amount": 299.99,
+  "currency": "EUR",
+  "status": "Pending",
+  "paymentMethod": "PayPal",
+  "provider": "PayPal",
+  "createdAt": "2025-10-04T15:30:00Z",
+  "updatedAt": "2025-10-04T15:30:00Z"
+}'
+```
+**Requisição**
+```json
 {
-  "userId": "user-123",
-  "gameId": "game-456",
-  "amount": 59.90,
-  "currency": "BRL",
-  "paymentMethod": "credit_card",
-  "paymentDetails": {
-    "cardNumber": "4111111111111111",
-    "cardHolderName": "João Silva",
-    "expirationDate": "12/25",
-    "cvv": "123"
-  }
+  "orderId": "a3c9f1d2-4b7e-4f99-9c2f-8e7a5b1d2c3f",
+  "userId": "b1d2f3e4-5a6b-7c8d-9e0f-1a2b3c4d5e6f",
+  "amount": 299.99,
+  "currency": "EUR",
+  "status": "Pending",
+  "paymentMethod": "PayPal",
+  "provider": "PayPal",
+  "createdAt": "2025-10-04T15:30:00Z",
+  "updatedAt": "2025-10-04T15:30:00Z"
 }
 ```
 
 **Resposta (201 Created)**
 ```json
 {
-  "paymentId": "pay_1234567890",
-  "status": "pending",
-  "message": "Payment request received and queued for processing",
-  "createdAt": "2025-10-05T14:30:00Z"
+  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "orderId": "a3c9f1d2-4b7e-4f99-9c2f-8e7a5b1d2c3f",
+  "userId": "b1d2f3e4-5a6b-7c8d-9e0f-1a2b3c4d5e6f",
+  "amount": 299.99,
+  "currency": "EUR",
+  "status": "Pending",
+  "paymentMethod": "PayPal",
+  "provider": "PayPal",
+  "createdAt": "2025-10-04T15:30:00Z",
+  "updatedAt": "2025-10-04T15:30:00Z"
 }
 ```
 
 #### Consultar Status do Pagamento
 ```http
-GET /api/payments/{paymentId}
+GET /api/payment/{paymentId}
+
+curl -X 'GET' \
+  'https://localhost:7157/api/payment/a3c9f1d2-4b7e-4f99-9c2f-8e7a5b1d2c3f' \
+  -H 'accept: text/plain'
 ```
 
 **Resposta (200 OK)**
 ```json
 {
-  "paymentId": "pay_1234567890",
-  "userId": "user-123",
-  "gameId": "game-456",
-  "amount": 59.90,
-  "currency": "BRL",
-  "status": "completed",
-  "paymentMethod": "credit_card",
-  "transactionId": "txn_9876543210",
-  "createdAt": "2025-10-05T14:30:00Z",
-  "processedAt": "2025-10-05T14:30:15Z"
+  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "orderId": "a3c9f1d2-4b7e-4f99-9c2f-8e7a5b1d2c3f",
+  "userId": "b1d2f3e4-5a6b-7c8d-9e0f-1a2b3c4d5e6f",
+  "amount": 299.99,
+  "currency": "EUR",
+  "status": "Completed",
+  "paymentMethod": "PayPal",
+  "provider": "PayPal",
+  "createdAt": "2025-10-04T15:30:00Z",
+  "updatedAt": "2025-10-04T15:45:00Z"
 }
 ```
 
