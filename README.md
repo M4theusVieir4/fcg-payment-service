@@ -493,28 +493,39 @@ dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=lcov
 [Fact]
 public async Task ShouldCreatePaymentAsync()
 {
-    var input = ModelFactory.CreatePaymentInput;
+    var request = ModelFactory.CreatePaymentRequest
+        with
+    { Id = default };
 
-    var output = await UseCase.Handle(input, CancellationToken);
+    var (httpMessage, response) = await Requester.PostAsync<CreatePaymentResponse>(Uri, request, CancellationToken);
 
-    output.ShouldNotBeNull();
-    output.Id.ShouldNotBe(Guid.Empty);
-    output.OrderId.ShouldBe(input.OrderId);
-    output.UserId.ShouldBe(input.UserId);
-    output.Amount.ShouldBe(input.Amount);
-    output.Currency.ShouldBe(input.Currency);
-    output.Status.ShouldBe(input.Status);
-    output.PaymentMethod.ShouldBe(input.PaymentMethod);
-    output.Provider.ShouldBe(input.Provider);
-    output.CreatedAt.ShouldBe(input.CreatedAt);
-    output.UpdatedAt.ShouldBe(input.UpdatedAt);
+    httpMessage.StatusCode
+        .ShouldBe(HttpStatusCode.Created);
 
-    await _paymentRepository
-        .Received(1)
-        .IndexAsync(
-            Arg.Any<Payment>(),
-            CancellationToken
-        );
+    response.ShouldNotBeNull();
+    response.Id.ShouldNotBe(Guid.Empty);
+    response.OrderId.ShouldBe(request.OrderId);
+    response.UserId.ShouldBe(request.UserId);
+    response.Amount.ShouldBe(request.Amount);
+    response.Currency.ShouldBe(request.Currency);        
+    response.PaymentMethod.ShouldBe(request.PaymentMethod);
+    response.Provider.ShouldBe(request.Provider);
+
+    var payment = await _paymentRepository
+        .GetByIdAsync(response.Id, CancellationToken);
+
+    payment.ShouldNotBeNull();
+    payment!.Id.ShouldBe(response.Id);
+    payment.OrderId.ShouldBe(response.OrderId);
+    payment.UserId.ShouldBe(response.UserId);
+    payment.Amount.ShouldBe(response.Amount);
+    payment.Currency.ShouldBe(response.Currency);
+    payment.Status.ShouldBe(response.Status);
+    payment.PaymentMethod.ShouldBe(response.PaymentMethod);
+    payment.Provider.ShouldBe(response.Provider);
+
+    var messages = await _paymentEventRepository.ListMessagesAsync(maxMessages: 10, CancellationToken);
+    messages.ShouldContain(m => m.Id == response.Id);
 }
 ```
 
