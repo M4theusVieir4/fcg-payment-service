@@ -662,6 +662,5 @@ Este projeto foi desenvolvido para fins acadêmicos como parte do curso de pós-
 ---
 
 <div align="center">
-  <p>Feito com ❤️ pela equipe FCG Cloud Games</p>
   <p>FIAP - Pós-Graduação em Arquitetura de Software</p>
 </div>
