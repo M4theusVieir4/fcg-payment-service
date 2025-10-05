@@ -9,10 +9,12 @@ namespace FCG.Payments.UnitTests.UseCases;
 public class CreatePaymentUseCaseTests : UseCaseTestBase<CreatePaymentUseCase>
 {
     private IPaymentRepository _paymentRepository;
+    private IPaymentEventPublisher _paymentEventPublisher;
 
     public CreatePaymentUseCaseTests(FcgFixture fixture) : base(fixture)
     {
         _paymentRepository = GetMock<IPaymentRepository>();
+        _paymentEventPublisher = GetMock<IPaymentEventPublisher>();
     }
 
     [Fact]
@@ -40,6 +42,9 @@ public class CreatePaymentUseCaseTests : UseCaseTestBase<CreatePaymentUseCase>
                 Arg.Any<Payment>(),
                 CancellationToken
             );
+
+        await _paymentEventPublisher.Received(1)
+            .PublishPaymentCreatedAsync(Arg.Is<Payment>(p => p.Id == output.Id), CancellationToken);
     }
 
     [Fact]
