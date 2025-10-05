@@ -115,7 +115,7 @@ O objetivo principal é demonstrar a aplicação de conceitos de computação em
 - **Observability**: Configuração do OpenTelemetry
 - **Pipelines**: Configuração de pipelines de comportamento (MediatR)
 
-  #### Infrastructure Layer - Messaging
+#### Infrastructure Layer - Messaging
   - **PaymentEventPublisher**: Publicação de eventos no AWS SQS
 
 #### Worker Service
