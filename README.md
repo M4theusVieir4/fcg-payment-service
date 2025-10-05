@@ -568,10 +568,10 @@ GET /health/live
 
 ## 🔒 Segurança
 
-✅ Validação de entrada de dados
-✅ Uso de IAM roles para permissões mínimas necessárias
-✅ Emails verificados no SES para prevenir spam
-✅ HTTPS obrigatório via API Gateway
+- ✅ Validação de entrada de dados
+- ✅ Uso de IAM roles para permissões mínimas necessárias
+- ✅ Emails verificados no SES para prevenir spam
+- ✅ HTTPS obrigatório via API Gateway
 
 ## 🚢 Deploy
 
@@ -657,6 +657,8 @@ cat prometheus.yml
 ## 📄 Licença
 
 Este projeto foi desenvolvido para fins acadêmicos como parte do curso de pós-graduação da FIAP.
+
+---
 
 <div align="center">
   <p>Feito com ❤️ pela equipe FCG Cloud Games</p>
