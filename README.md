@@ -126,6 +126,7 @@ O objetivo principal é demonstrar a aplicação de conceitos de computação em
 
 ### Fluxo de Pagamento Assíncrono
 
+```
 1. Cliente envia requisição POST /api/payment
         │
         ▼
@@ -157,6 +158,7 @@ O objetivo principal é demonstrar a aplicação de conceitos de computação em
         │
         ▼
 11. Cliente consulta GET /api/payment/{id} para verificar status
+```
 
 ## 🛠️ Tecnologias Utilizadas
 
@@ -190,6 +192,7 @@ O objetivo principal é demonstrar a aplicação de conceitos de computação em
 
 ## 📦 Estrutura do Projeto
 
+```
 FCG.Payments/ (9 projetos)
 │
 ├── 📂 FCG.Payments.Api
@@ -259,6 +262,7 @@ FCG.Payments/ (9 projetos)
 │       └── 📄 FcgFixture.cs
 │
 └── 📄 FCG.Payments.sln
+```
 
 ## 🚀 Como Usar
 
