@@ -17,7 +17,7 @@
 
 O **FCG Cloud Games - Payment Microservice** é um microserviço desenvolvido para a pós-graduação da FIAP, responsável por gerenciar todo o fluxo de pagamentos da plataforma FCG Cloud Games. Este repositório implementa uma solução completa de processamento de pagamentos síncronos e assíncronos utilizando arquitetura hexagonal, padrões modernos de desenvolvimento e serviços AWS.
 
-O objetivo principal é demonstrar a aplicação de conceitos avançados de arquitetura de software, processamento assíncrono, observabilidade e integração de serviços em nuvem em um cenário real de e-commerce.
+O objetivo principal é demonstrar a aplicação de conceitos de computação em nuvem, arquitetura serverless e integração de serviços AWS em um cenário real de aplicação.
 
 ## 🎯 Funcionalidades
 
@@ -33,6 +33,14 @@ O objetivo principal é demonstrar a aplicação de conceitos avançados de arqu
 - 🌐 **API REST**: Endpoints bem documentados para integração
 
 ## 🏗️ Arquitetura
+
+<img width="771" height="831" alt="image" src="https://github.com/user-attachments/assets/fe41b17d-b195-44ff-adb0-b9fd2cf4731a" />
+
+### Componentes
+- API Gateway: Ponto de entrada HTTP/HTTPS para as requisições
+- AWS SQS: Serviço de Mensageria da AWS para filas FIFO de pagamentos
+- ElasticSearch: Serviço da AWS para armazenamento de dados
+- .NET 9: Runtime da aplicação
 
 ### Visão Geral
 
@@ -76,9 +84,6 @@ O objetivo principal é demonstrar a aplicação de conceitos avançados de arqu
                             │  (Status Update) │
                             └──────────────────┘
 ```
-
-### Componentes
-
 #### API Layer
 - **Controllers**: Endpoints REST para operações de pagamento
 - **Middlewares**: Tratamento de exceções e logging
@@ -541,14 +546,10 @@ GET /health/live
 
 ## 🔒 Segurança
 
-- ✅ Validação de entrada com FluentValidation
-- ✅ Sanitização de dados sensíveis nos logs
-- ✅ Criptografia de dados do cartão em trânsito
-- ✅ PCI-DSS compliance para dados de pagamento
-- ✅ Rate limiting por usuário
-- ✅ Autenticação e autorização JWT
-- ✅ HTTPS obrigatório em produção
-- ✅ Princípio do menor privilégio (IAM Roles)
+✅ Validação de entrada de dados
+✅ Uso de IAM roles para permissões mínimas necessárias
+✅ Emails verificados no SES para prevenir spam
+✅ HTTPS obrigatório via API Gateway
 
 ## 🚢 Deploy
 
@@ -561,38 +562,7 @@ docker build -t fcg-payment-worker:latest -f Dockerfile.worker .
 
 # Run
 docker run -p 5000:80 fcg-payment-api:latest
-docker run fcg-payment-worker:latest
-```
-
-### AWS ECS/Fargate
-
-```bash
-# Deploy via Terraform/CloudFormation
-cd infrastructure/
-terraform init
-terraform plan
-terraform apply
-```
-
-### Kubernetes
-
-```bash
-kubectl apply -f k8s/namespace.yml
-kubectl apply -f k8s/configmap.yml
-kubectl apply -f k8s/secrets.yml
-kubectl apply -f k8s/deployment.yml
-kubectl apply -f k8s/service.yml
-kubectl apply -f k8s/hpa.yml
-```
-
-## 📈 Performance
-
-### Benchmarks
-
-- **Latência média de API**: < 100ms (p95)
-- **Throughput**: 1000 req/s por instância
-- **Tempo de processamento assíncrono**: 2-5 segundos
-- **Mensagens SQS por segundo**: 500-1000
+docker run fcg-payment-worker:latest`
 
 ### Otimizações
 
@@ -607,52 +577,12 @@ kubectl apply -f k8s/hpa.yml
 Este projeto foi desenvolvido como parte do curso de pós-graduação da FIAP, demonstrando:
 
 - ✅ **Arquitetura Hexagonal**: Separação clara de responsabilidades
-- ✅ **CQRS e MediatR**: Separação de leitura e escrita
 - ✅ **Event-Driven Architecture**: Processamento assíncrono com mensageria
 - ✅ **Cloud-Native**: Uso de serviços gerenciados AWS
 - ✅ **Observabilidade**: Métricas, logs e traces
 - ✅ **DevOps**: CI/CD, containerização, IaC
 - ✅ **Clean Code**: Princípios SOLID e boas práticas
 - ✅ **Testing**: TDD, cobertura de testes unitários e de integração
-
-## 🔗 Integração com Outros Microserviços
-
-### Games Service
-```csharp
-// Após pagamento aprovado, notifica o Games Service
-await _httpClient.PostAsync(
-    "https://games-api.fcggames.com/api/purchases",
-    new { userId, gameId, paymentId }
-);
-```
-
-### Email Service (Lambda)
-```csharp
-// Envia email de confirmação
-await _emailService.SendPaymentConfirmationAsync(
-    userEmail, 
-    paymentDetails
-);
-```
-
-### Notification Service
-```csharp
-// Publica evento para notificações em tempo real
-await _eventBus.PublishAsync(new PaymentCompletedEvent
-{
-    UserId = userId,
-    PaymentId = paymentId,
-    Status = "completed"
-});
-```
-
-## 📚 Documentação Adicional
-
-- [API Documentation](./docs/API_DOCUMENTATION.md)
-- [Architecture Deep Dive](./docs/ARCHITECTURE.md)
-- [Deployment Guide](./docs/DEPLOYMENT.md)
-- [Contributing Guidelines](./CONTRIBUTING.md)
-- [Changelog](./CHANGELOG.md)
 
 ## 🐛 Troubleshooting
 
@@ -692,11 +622,11 @@ cat prometheus.yml
 
 ## 👥 Autores
 
-- **Paulo** - Arquitetura e Infraestrutura
-- **Geovanne** - Backend e APIs
-- **Letícia** - Testes e Qualidade
-- **Matheus** - DevOps e Monitoramento
-- **Marcelo** - Domain e Business Logic
+- **Paulo** - Infraestrutura AWS (Terraform)
+- **Geovanne** - Microsserviço Jogos
+- **Letícia** -  Microsserviço Usuários 
+- **Matheus** -  Microsserviço Pagamentos
+- **Marcelo** -  Microsserviço Catálogos
 
 **Pós-Graduação FIAP - FCG Cloud Games**
 
@@ -705,19 +635,6 @@ cat prometheus.yml
 ## 📄 Licença
 
 Este projeto foi desenvolvido para fins acadêmicos como parte do curso de pós-graduação da FIAP.
-
-## 🤝 Contribuindo
-
-Contribuições são bem-vindas! Por favor, leia o [CONTRIBUTING.md](./CONTRIBUTING.md) para detalhes sobre nosso código de conduta e processo de submissão de pull requests.
-
-## 📞 Suporte
-
-Para questões e suporte:
-- 📧 Email: fcg-games@fiap.com.br
-- 💬 Discord: [FCG Cloud Games Community](https://discord.gg/fcggames)
-- 📚 Wiki: [Project Wiki](https://github.com/seu-usuario/fcg-payment-service/wiki)
-
----
 
 <div align="center">
   <p>Feito com ❤️ pela equipe FCG Cloud Games</p>
