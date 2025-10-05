@@ -28,8 +28,8 @@ public static class DependencyInjection
         ArgumentNullException.ThrowIfNull(elasticSearchSettings);
 
         var awsCredentials = new BasicAWSCredentials(
-            elasticSearchSettings.AccessKey,
-            elasticSearchSettings.Secret
+            sqsSettings["AccessKey"],
+            sqsSettings["SecretKey"]
         );
 
         services

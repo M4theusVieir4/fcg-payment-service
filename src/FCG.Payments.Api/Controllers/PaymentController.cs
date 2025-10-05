@@ -36,7 +36,7 @@ public class PaymentController(IMediator mediator) : ControllerBase
         );
     }
 
-
+    //TODO
     //[HttpPost("{id}/confirm")]
     //public IActionResult ConfirmPayment(Guid id)
     //{
