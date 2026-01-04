@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fcg-payment-service
+  namespace: fcg-payment
+spec:
+  selector:
+    app: fcg-payment-service
+  ports:
+    - protocol: TCP
+      port: ${SERVICE_PORT}
+      targetPort: ${CONTAINER_PORT}
+  type: ClusterIP
