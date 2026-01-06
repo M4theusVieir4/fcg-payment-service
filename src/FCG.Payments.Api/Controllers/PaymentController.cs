@@ -1,10 +1,14 @@
-﻿using FCG.Payments.Api.Contracts;
+﻿using FCG.Payments.Api._Common.Constants;
+using FCG.Payments.Api.Contracts;
 using FCG.Payments.Api.Mappings;
 using FCG.Payments.Application.Contracts;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FCGPaymentService.API.Controllers;
+
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class PaymentController(IMediator mediator) : ControllerBase
@@ -21,6 +25,7 @@ public class PaymentController(IMediator mediator) : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = Roles.User)]
     public async Task<ActionResult<CreatePaymentResponse>> CreatePaymentAsync(
         [FromBody] CreatePaymentRequest request,
         CancellationToken ct)

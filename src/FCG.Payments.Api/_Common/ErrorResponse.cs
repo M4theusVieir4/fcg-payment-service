@@ -3,6 +3,7 @@ using System.Net;
 using System.Text.Json.Serialization;
 
 namespace FCG.Payments.Api._Common;
+
 public class ErrorResponse
 {
     public ErrorResponse(HttpStatusCode statusCode, string message)
