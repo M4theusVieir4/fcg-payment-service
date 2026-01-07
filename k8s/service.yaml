@@ -3,11 +3,14 @@ kind: Service
 metadata:
   name: fcg-payments-service
   namespace: fcg-payments
+  labels:
+    app: fcg-payments
 spec:
   selector:
     app: fcg-payments-service
   ports:
-    - protocol: TCP
+    - name: http
+      protocol: TCP
       port: ${SERVICE_PORT}
       targetPort: ${CONTAINER_PORT}
   type: ClusterIP
