@@ -9,8 +9,8 @@ spec:
     kind: Deployment
     name: fcg-payment-service
 
-  minReplicas: 2
-  maxReplicas: 10
+  minReplicas: 1
+  maxReplicas: 4
 
   metrics:
     - type: Resource
