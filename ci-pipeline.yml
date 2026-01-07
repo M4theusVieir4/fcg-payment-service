@@ -77,10 +77,22 @@ phases:
     commands:
       - echo Enviando imagem para o ECR
       - docker push $ECR_REPOSITORY_URI:$IMAGE_TAG
-      - echo '[{"name":"'$ECS_CONTAINER_NAME'","imageUri":"'$ECR_REPOSITORY_URI':'$IMAGE_TAG'"}]' > image-definitions.json
+      
+      - echo Atualizando kubeconfig do EKS
+      - aws eks update-kubeconfig
+        --name $EKS_CLUSTER_NAME
+        --region $AWS_REGION
+
+      - echo Substituindo variáveis nos manifests
+      - sed -i "s|\${IMAGE}|$ECR_REPOSITORY_URI:$IMAGE_TAG|g" k8s/deployment.yaml
+      - sed -i "s|\${CONTAINER_PORT}|$CONTAINER_PORT|g" k8s/deployment.yaml
+      - sed -i "s|\${CONTAINER_PORT}|$CONTAINER_PORT|g" k8s/service.yaml
+      - sed -i "s|\${SERVICE_PORT}|$SERVICE_PORT|g" k8s/service.yaml
+      
+      - echo Aplicando manifests no Kubernetes
+      - kubectl apply -f k8s/
 
 artifacts:
   files:
-    - image-definitions.json
     - src/TestResults/**/*
     - src/CoverageReport/**/*
