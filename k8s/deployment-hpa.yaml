@@ -1,13 +1,13 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: fcg-payment-hpa
-  namespace: fcg-payment
+  name: fcg-payments-hpa
+  namespace: fcg-payments
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: fcg-payment-service
+    name: fcg-payments-service
 
   minReplicas: 1
   maxReplicas: 4

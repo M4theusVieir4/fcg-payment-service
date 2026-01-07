@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fcg-payment-service
-  namespace: fcg-payment
+  name: fcg-payments-service
+  namespace: fcg-payments
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: fcg-payment-service
+      app: fcg-payments-service
   template:
     metadata:
       labels:
-        app: fcg-payment-service
+        app: fcg-payments-service
     spec:
       containers:
-        - name: fcg-payment-service
+        - name: fcg-payments-service
           image: ${IMAGE}
           imagePullPolicy: IfNotPresent
           ports:
@@ -32,25 +32,25 @@ spec:
             - name: ElasticSearchSettings__Endpoint
               valueFrom:
                 configMapKeyRef:
-                  name: fcg-payment-configs
+                  name: fcg-payments-configs
                   key: ElasticSearchEndpoint
 
             - name: ElasticSearchSettings__Region
               valueFrom:
                 configMapKeyRef:
-                  name: fcg-payment-configs
+                  name: fcg-payments-configs
                   key: ElasticSearchRegion
 
             - name: ElasticSearchSettings__AccessKey
               valueFrom:
                 secretKeyRef:
-                  name: fcg-payment-secrets
+                  name: fcg-payments-secrets
                   key: ElasticSearchAccessKey
 
             - name: ElasticSearchSettings__Secret
               valueFrom:
                 secretKeyRef:
-                  name: fcg-payment-secrets
+                  name: fcg-payments-secrets
                   key: ElasticSearchSecret
 
             - name: ASPNETCORE_HTTP_PORTS
